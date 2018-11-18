@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- use xlmns instead of xmlns:nc and you don't have to prefix the fields as 'nc:'.
+    This is called a default namespace
+ -->
+<schema xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"/>
+<nc:Person>
+    <nc:PersonDescriptionText>This is a description of me...</nc:PersonDescriptionText>
+    <nc:PersonHandednessText>Right</nc:PersonHandednessText>
+    <nc:PersonName>
+        <nc:PersonGivenName>Steven</nc:PersonGivenName>
+        <nc:PersonMiddleName>Thomas</nc:PersonMiddleName>
+        <nc:PersonSurName>Souza</nc:PersonSurName>
+    </nc:PersonName>
+</nc:Person>
