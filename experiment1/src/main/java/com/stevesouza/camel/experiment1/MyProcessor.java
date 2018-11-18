@@ -1,14 +1,17 @@
-package com.stevesouza.xml;
+package com.stevesouza.camel.experiment1;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
 import java.util.Map;
 
-public class PrintClassProcessor implements Processor {
+public class MyProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         System.err.println(exchange.getIn().getBody().getClass());
         System.err.println(exchange.getIn().getBody());
+        Map map = (Map) exchange.getIn().getBody();
+        map.put("mynewkey", "my new value");
+        System.err.println(map);
     }
 }

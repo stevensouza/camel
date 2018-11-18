@@ -1,11 +1,7 @@
-package com.stevesouza.xml;
+package com.stevesouza.camel.experiment1;
 
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.UUID;
 
 @Component
 public class DataGeneratorRoute extends SpringRouteBuilder {

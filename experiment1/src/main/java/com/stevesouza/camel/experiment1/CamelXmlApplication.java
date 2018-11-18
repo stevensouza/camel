@@ -1,13 +1,9 @@
-package com.stevesouza.xml;
+package com.stevesouza.camel.experiment1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.ClassPathResource;
-
-import java.io.IOException;
-import java.util.Date;
 
 @SpringBootApplication
 public class CamelXmlApplication {
