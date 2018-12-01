@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.stevesouza</groupId>
-	<artifactId>camel_experiment1</artifactId>
+	<artifactId>camel_experiment1_rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>camel_experiment1</name>
+	<name>camel_experiment1_rest</name>
 	<description>Demo camel for Spring Boot</description>
 
 	<parent>
