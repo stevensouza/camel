@@ -1,5 +1,6 @@
 package com.stevesouza.camel.experiment1;
 
+import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,10 @@ public class DataGeneratorRoute extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        // enable dropwizard metrics - not required
+        // see hawt io 'Route Metrics' for jamon like data it collects.
+        getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
+
         // An xml classpath File is passed in as input (although it could also be a String xml document too)
         from("direct:tojson1")
                 .routeId("tojson1")
