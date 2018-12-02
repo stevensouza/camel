@@ -40,10 +40,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-spring-boot-starter</artifactId>
-			<version>${camel.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<!-- spring metrics and health endpoints-->
@@ -69,22 +69,34 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jackson</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+
 		<!-- END other standard libraries of common use-->
 
 
 
 
 		<!-- START camel libraries-->
+		<!--always use -starter with spring boot camel p 259 2nd edition-->
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-metrics</artifactId>
+			<artifactId>camel-spring-boot-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-metrics-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+	<dependency>
+		<groupId>org.apache.camel</groupId>
+		<artifactId>camel-jackson-starter</artifactId>
+		<version>${camel.version}</version>
+	</dependency>
+
+
 		<!-- END camel libraries-->
 
 

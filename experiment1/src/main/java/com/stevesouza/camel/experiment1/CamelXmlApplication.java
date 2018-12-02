@@ -17,16 +17,6 @@ public class CamelXmlApplication {
      */
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context = SpringApplication.run(CamelXmlApplication.class, args);
-        DataGenerator generator = context.getBean("dataGenerator", DataGenerator.class);
-//        generator.send("hello world");
-        for (int i=0; i<100000; i++) {
-            generator.send("direct:tojson1", new ClassPathResource("person.xml").getFile());
-            generator.send("direct:tojson2", new ClassPathResource("person.xml").getFile());
-            generator.send("direct:displaytype", new ClassPathResource("person.xml").getFile());
-            generator.send("direct:validatexml", new ClassPathResource("person.xml").getFile());
-            Thread.sleep(1000);
-        }
-
     }
 
 }
