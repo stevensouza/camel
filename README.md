@@ -9,7 +9,10 @@ your routes and seeing how much data is passing through and whether or not error
 * Hawt io gives you a way to see JMX data and operations with http/webapp vs using JConsole.
 
 
-## experiment1 - experiments using spring boot rest endpoints to send messages to camel routes. The endpoints are
+## experiment1 
+
+experiments using spring boot rest endpoints to send messages to camel routes. The endpoints are
 
 http://127.0.0.1:8080/experiment1/start
+
 http://127.0.0.1:8080/experiment1/stop
