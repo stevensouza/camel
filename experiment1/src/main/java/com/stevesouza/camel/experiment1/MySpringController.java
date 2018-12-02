@@ -1,8 +1,6 @@
 package com.stevesouza.camel.experiment1;
 
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.FluentProducerTemplate;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class MySpringController {
 
     // note you could reuse the same FluentProducerTemplate and set the endpoint (probably template.to("direct:start")
-    @EndpointInject(uri="direct:start")
+    @EndpointInject(uri = "direct:start")
     FluentProducerTemplate start;
 
-    @EndpointInject(uri="direct:stop")
+    @EndpointInject(uri = "direct:stop")
     FluentProducerTemplate stop;
 
     @GetMapping("/start")
