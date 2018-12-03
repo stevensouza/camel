@@ -9,9 +9,13 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
     /**
      * todo
-     * look at methods for fluenproducer and routes.
-     * kafka, amq, randombeans, modelmapper
+     * look at methods for fluentproducer and routes.
+     * start/stop routes api
+     * choice (header) kafka, amq, randombeans, modelmapper
      * mimic irsingester logic
+     * review log
+     * commit from intellij - sonar
+     * check actuator endpoints
      * different components
      * * test
      * * readme file
@@ -20,6 +24,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
      * http://localhost:8080/actuator/hawtio/
      * look at hawt io
      */
+
+    // @formatter:off - disable intellij's reformat command from messing up indentation in camel routes
+
 
     @Override
     public void configure() throws Exception {
@@ -30,6 +37,13 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // always assign a routeId for easy route identification
         from("direct:start")
                 .routeId("start")
+                .choice()
+                    // getting property for spring application.properties file
+                    .when(simple("${properties:experiment1.broker_type} == 'kafka'"))
+                        .log("broker_type is kafka")
+                    .otherwise()
+                        .log("broker type is activemq")
+                .end()
                 .transform(constant("i am starting (from camel)"));
 
         from("direct:stop")
@@ -39,6 +53,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
 
     }
+
+    // @formatter:on - enable intellij's reformat command from messing up indentation in camel routes
+
 
     public static class MyBean {
         public String start() {
