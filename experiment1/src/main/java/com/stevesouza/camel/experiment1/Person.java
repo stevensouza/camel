@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Person {
     private PersonName PersonName;
-
     private String PersonDescriptionText;
-
-    private String PersonHandednessText;
+    private int age;
 }

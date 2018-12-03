@@ -18,21 +18,22 @@ public class MySpringController {
     private String brokerType;
 
     // note you could reuse the same FluentProducerTemplate and set the endpoint (probably template.to("direct:start")
-    @EndpointInject(uri = "direct:start")
-    FluentProducerTemplate start;
-
-    @EndpointInject(uri = "direct:stop")
-    FluentProducerTemplate stop;
+    @EndpointInject(uri = "direct:generateRandomData.controlbus")
+    FluentProducerTemplate controlBus;
 
     @GetMapping("/start")
     public String start() {
         // request() expects a return falue and send() does not.
-        return start.withHeader("broker_type", brokerType).request().toString();
+        // action could be either start or resume
+        log.info("starting/resuming route");
+        return controlBus.withHeader("action", "resume").request(String.class);
     }
 
     @GetMapping("/stop")
     public String stop() {
-        return stop.request(String.class);
+        // action could either be stop or suspend
+        log.info("stopping/suspending route");
+        return controlBus.withHeader("action", "suspend").request(String.class);
     }
 
 }

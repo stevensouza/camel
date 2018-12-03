@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PersonName {
     private String PersonMiddleName;
-
     private String PersonGivenName;
-
     private String PersonSurName;
-
 }

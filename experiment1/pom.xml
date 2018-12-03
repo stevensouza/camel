@@ -63,21 +63,8 @@
 
 
 
-		<!-- START other standard libraries of common use-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- END other standard libraries of common use-->
-
-
-
-
 		<!-- START camel libraries-->
 		<!--always use -starter with spring boot camel p 259 2nd edition-->
-
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring-boot-starter</artifactId>
@@ -90,14 +77,41 @@
 			<version>${camel.version}</version>
 		</dependency>
 
-	<dependency>
-		<groupId>org.apache.camel</groupId>
-		<artifactId>camel-jackson-starter</artifactId>
-		<version>${camel.version}</version>
-	</dependency>
-
-
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jackson-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
 		<!-- END camel libraries-->
+
+
+
+		<!-- START other standard libraries of common use-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+        <!-- easily generate test data even with complex object webs.  good for actual code when stubbing a controller -->
+        <dependency>
+            <groupId>io.github.benas</groupId>
+            <artifactId>random-beans</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.benas</groupId>
+            <artifactId>random-beans-validation</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+
+		<!-- END other standard libraries of common use-->
+
+
+
+
+
 
 
 
