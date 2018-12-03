@@ -13,7 +13,10 @@
         <nc:EntityOrganization>
             <nc:OrganizationAbbreviationText>IBM</nc:OrganizationAbbreviationText>
             <nc:OrganizationActivityText>Software and Hardware</nc:OrganizationActivityText>
-            <nc:OrganizationDescriptionText>IBM - International Business Machines. Short for International Business Machines, the largest computer company in the world. IBM started in 1911 as a producer of punch card tabulating machines. In 1953, it introduced its first computer, the 701.</nc:OrganizationDescriptionText>
+            <nc:OrganizationDescriptionText>IBM - International Business Machines. Short for International Business
+                Machines, the largest computer company in the world. IBM started in 1911 as a producer of punch card
+                tabulating machines. In 1953, it introduced its first computer, the 701.
+            </nc:OrganizationDescriptionText>
             <nc:OrganizationIncorporatedIndicator>true</nc:OrganizationIncorporatedIndicator>
             <nc:OrganizationIncorporatedIndicator>true</nc:OrganizationIncorporatedIndicator>
         </nc:EntityOrganization>

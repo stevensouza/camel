@@ -2,7 +2,6 @@ package com.stevesouza.camel.experiment1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class CamelXmlApplication {
@@ -13,10 +12,9 @@ public class CamelXmlApplication {
      * http://localhost:8080/actuator/hawtio/
      *
      * @param args
-     * @throws Exception
      */
-    public static void main(String[] args) throws Exception {
-        ApplicationContext context = SpringApplication.run(CamelXmlApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(CamelXmlApplication.class, args);
     }
 
 }

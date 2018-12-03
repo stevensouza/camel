@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 public class MyCamelRoutes extends SpringRouteBuilder {
 
     /**
-     * todo
      * look at methods for fluentproducer and routes.
      * start/stop routes api
      * choice (header) kafka, amq, randombeans, modelmapper
@@ -64,7 +63,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .log("action=${header.action}")
                 // controlbus is an eip that allows you to start/stop/suspend/resume routes among other things.
                 .toD("controlbus:route?routeId=route.generateRandomData&action=${header.action}")
-                .transform(simple("Action taken on route: ${header.action}"));;
+                .transform(simple("Action taken on route: ${header.action}"));
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
 

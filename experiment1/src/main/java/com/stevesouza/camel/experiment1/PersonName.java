@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PersonName {
-    private String PersonMiddleName;
-    private String PersonGivenName;
-    private String PersonSurName;
+    private String personMiddleName;
+    private String personGivenName;
+    private String personSurName;
 }

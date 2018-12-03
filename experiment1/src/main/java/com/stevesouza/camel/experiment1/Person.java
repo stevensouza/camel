@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Person {
-    private PersonName PersonName;
-    private String PersonDescriptionText;
+    private PersonName personName;
+    private String personDescriptionText;
     private int age;
 }
