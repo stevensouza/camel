@@ -46,6 +46,17 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.kafka</groupId>-->
+            <!--<artifactId>spring-kafka</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+
+
 		<!-- spring metrics and health endpoints-->
 
 		<dependency>
@@ -58,6 +69,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+
 
 		<!-- END STANDARD SPRING BOOT LIBRARIES-->
 
@@ -82,6 +95,13 @@
 			<artifactId>camel-jackson-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms-starter</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+
 		<!-- END camel libraries-->
 
 
@@ -106,6 +126,10 @@
             <version>3.7.0</version>
         </dependency>
 
+		<!--<dependency>-->
+			<!--<groupId>org.apache.activemq</groupId>-->
+			<!--<artifactId>activemq-broker</artifactId>-->
+		<!--</dependency>-->
 		<!-- END other standard libraries of common use-->
 
 

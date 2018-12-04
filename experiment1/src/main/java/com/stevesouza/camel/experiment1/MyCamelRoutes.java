@@ -1,6 +1,7 @@
 package com.stevesouza.camel.experiment1;
 
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -56,7 +57,12 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // The methods return value will be used to setBody(..)
                 .bean(GenerateData.class)
                 .log("Generated random data=${body}")
-                .to("direct:processData");
+                .marshal().json(JsonLibrary.Jackson)
+                .to("direct:processData")
+//                .convertBodyTo(String.class)
+                .to("jms:queue:randomdata_queue");
+
+        from("jms:queue:randomdata_queue").log("***** ${body}");
 
         from("direct:generateRandomData.controlbus")
                 .routeId("route.generateRandomData.controlbus")
@@ -64,6 +70,8 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // controlbus is an eip that allows you to start/stop/suspend/resume routes among other things.
                 .toD("controlbus:route?routeId=route.generateRandomData&action=${header.action}")
                 .transform(simple("Action taken on route: ${header.action}"));
+
+
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
 

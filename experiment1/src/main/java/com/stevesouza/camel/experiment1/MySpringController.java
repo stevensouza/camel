@@ -26,6 +26,8 @@ public class MySpringController {
         // request() expects a return falue and send() does not.
         // action could be either start or resume
         log.info("starting/resuming route");
+        // note in this case the route returns info to the browser, though only doing it this way ot show how it is done.
+        // probably best to just do a plain 'send' and have the controller itself return the message.
         return controlBus.withHeader("action", "resume").request(String.class);
     }
 
