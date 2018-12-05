@@ -1,6 +1,7 @@
 package com.stevesouza.camel.experiment1;
 
 import com.stevesouza.camel.experiment1.data.Person;
+import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
@@ -45,10 +46,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
      *          (route.generateRandomData)
      *      - route.generateRandomData - generate person data and write to amq/kafka
      *
-     * @throws Exception
      */
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         // enable dropwizard metrics - not required
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
@@ -70,9 +70,15 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .bean(GenerateData.class)
                 .log("Generated random data=${body}")
                 .marshal().json(JsonLibrary.Jackson)
-                .to("direct:processData");
+                .to("direct:processData")
+                .setHeader(KafkaConstants.KEY, constant("person json")) // Key of the message
+                .toD("kafka:PersonTopic?brokers=localhost:9092");
                 //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
 //                .to("activemq:queue:randomdata_queue?connectionFactory=#jms");
+
+        // https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
+        from("kafka:PersonTopic?brokers=localhost:9092&groupId=testinggroup&autoOffsetReset=earliest&consumersCount=1")
+                .log("kafka read/from: ${body}");
 
         // Send data on to either amq or kafka depending on configuration
         // always assign a routeId for easy route identification
@@ -96,7 +102,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
         // note i use the activemq component.  it inherits from the jms component and uses the same properties
         // however it is more efficient than jms.
-        /** read from activemq */
+        // read from activemq
         from("activemq:queue:randomdata_queue?connectionFactory=#jms")
                 .routeId("route.readFromJms")
                 // note if i didn't unmarshal json text would print instead of the toString method
@@ -105,7 +111,6 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // if the rest of the route was ok with dealing with json.
                 .unmarshal().json(JsonLibrary.Jackson, Person.class)
                 .log("Retrieved data from amq queue: ${body}");
-
 
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
