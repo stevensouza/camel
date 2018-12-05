@@ -1,5 +1,6 @@
 package com.stevesouza.camel.experiment1;
 
+import com.stevesouza.camel.experiment1.data.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
