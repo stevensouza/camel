@@ -20,7 +20,6 @@ public class MyCamelRoutes extends SpringRouteBuilder {
      * start/stop routes api
      * choice (header) kafka, amq, randombeans, modelmapper
      * mimic irsingester logic
-     * template.sendBody("controlbus:route?routeId=foo&action=start", null);
      * review log
      * commit from intellij - sonar
      * check actuator endpoints
@@ -40,12 +39,41 @@ public class MyCamelRoutes extends SpringRouteBuilder {
      */
 
     // @formatter:off - disable intellij's reformat command from messing up indentation in camel routes
+    /** Defined routes:
+     *      - route.generateRandomData.controlbus - Called from rest controller to start/stop the main route
+     *          (route.generateRandomData)
+     *      - route.generateRandomData - generate person data and write to amq/kafka
+     *
+     * @throws Exception
+     */
     @Override
     public void configure() throws Exception {
         // enable dropwizard metrics - not required
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
+        // Control main route
+        from("direct:generateRandomData.controlbus")
+               .routeId("route.generateRandomData.controlbus")
+               .log("action=${header.action}")
+               // controlbus is an eip that allows you to start/stop/suspend/resume routes among other things.
+               .toD("controlbus:route?routeId=route.generateRandomData&action=${header.action}")
+               .transform(simple("Action taken on route: ${header.action}"));
+
+        // Generate random Person data
+        // could use timer or quartz instead of schedule component
+        from("scheduler://generate_data?delay=5s")
+                .routeId("route.generateRandomData")
+                .noAutoStartup() // don't run route on app startup. The control bus below will start/stop it on demand
+                // The methods return value will be used to setBody(..)
+                .bean(GenerateData.class)
+                .log("Generated random data=${body}")
+                .marshal().json(JsonLibrary.Jackson)
+                .to("direct:processData");
+                //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
+//                .to("activemq:queue:randomdata_queue?connectionFactory=#jms");
+
+        // Send data on to either amq or kafka depending on configuration
         // always assign a routeId for easy route identification
         //.noAutoStartup()
         // You can set a node description with: .description("my description")
@@ -60,23 +88,14 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                         .log("broker_type is kafka")
                     .otherwise()
                         .log("broker type is activemq")
+                        .to("activemq:queue:randomdata_queue?connectionFactory=#jms")
                 .end();
 
-        // also could use timer or quartz
-        from("scheduler://generate_data?delay=5s")
-                .routeId("route.generateRandomData")
-                .noAutoStartup() // don't run route on app startup. The control bus below will start/stop it on demand
-                // The methods return value will be used to setBody(..)
-                .bean(GenerateData.class)
-                .log("Generated random data=${body}")
-                .marshal().json(JsonLibrary.Jackson)
-                .to("direct:processData")
-                // it isn't clear why '#' is needed betlow, but camel plugin doesn't like it when left off although
-                // there is no error at runtime.
-                .to("activemq:queue:randomdata_queue?connectionFactory=#jms");
+
 
         // note i use the activemq component.  it inherits from the jms component and uses the same properties
         // however it is more efficient than jms.
+        /** read from activemq */
         from("activemq:queue:randomdata_queue?connectionFactory=#jms")
                 .routeId("route.readFromJms")
                 // note if i didn't unmarshal json text would print instead of the toString method
@@ -84,14 +103,8 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // header and you don't need to specify the class explicitly. You wouldn't need to unmarshal
                 // if the rest of the route was ok with dealing with json.
                 .unmarshal().json(JsonLibrary.Jackson, Person.class)
-                .log("Retrieved data from queue: ${body}");
+                .log("Retrieved data from amq queue: ${body}");
 
-        from("direct:generateRandomData.controlbus")
-                .routeId("route.generateRandomData.controlbus")
-                .log("action=${header.action}")
-                // controlbus is an eip that allows you to start/stop/suspend/resume routes among other things.
-                .toD("controlbus:route?routeId=route.generateRandomData&action=${header.action}")
-                .transform(simple("Action taken on route: ${header.action}"));
 
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes

@@ -34,13 +34,14 @@ public class JmsConfig {
 
         // note the following defaults to ActiveMQConnectionFactory if ssl transport isn't defined
         ActiveMQSslConnectionFactory connectionFactory = new ActiveMQSslConnectionFactory();
+        connectionFactory.setBrokerURL(brokerUrl);
+
         //        ActiveMQSslConnectionFactory connectionFactory = new ActiveMQSslConnectionFactory(brokerUrl);
 ////        connectionFactory.setTrustStore(trustStore);
 ////        connectionFactory.setTrustStorePassword(trustStorePassword);
 //        connectionFactory.setUserName(userName);
 //        connectionFactory.setPassword(password);
 //        connectionFactory.setBrokerURL(brokerUrl);
-        //  connectionFactory.setBrokerURL(brokerUrl);
         return connectionFactory;
     }
 
