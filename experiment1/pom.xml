@@ -102,6 +102,36 @@
             <version>${camel.version}</version>
         </dependency>
 
+		<!--This allows us to use the activemq component in routes instead of jms.  According to the camel site-->
+		<!--it is more efficient.-->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-camel</artifactId>
+			<version>5.15.6</version>
+		</dependency>
+		<!-- xml processing -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-xstream</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jacksonxml</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-xmljson</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<!-- xml validation -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-msv</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
 		<!-- END camel libraries-->
 
 
@@ -130,44 +160,22 @@
 			<!--<groupId>org.apache.activemq</groupId>-->
 			<!--<artifactId>activemq-broker</artifactId>-->
 		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.activemq</groupId>-->
+			<!--<artifactId>activemq-broker</artifactId>-->
+		<!--</dependency>-->
 		<!-- END other standard libraries of common use-->
 
-
-
-
-
-
-
-
-
 		<!-- **** START XML processing libraries-->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-xstream</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jacksonxml</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-xmljson</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+
 		<!--xml processing-->
 		<dependency>
 			<groupId>xom</groupId>
 			<artifactId>xom</artifactId>
 			<version>1.2.5</version>
 		</dependency>
-		<!-- xml validation -->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-msv</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+
 		<!-- END XML processing libraries-->
 
 	</dependencies>
