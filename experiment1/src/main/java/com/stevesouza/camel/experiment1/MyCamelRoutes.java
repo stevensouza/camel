@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 public class MyCamelRoutes extends SpringRouteBuilder {
 
     /**
+     * make kafka properties file driven
+     * activemq uses VirtualTopic
+     *
      * activemq
      * read https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#jms
      * VirtualTopic.
@@ -70,15 +73,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .bean(GenerateData.class)
                 .log("Generated random data=${body}")
                 .marshal().json(JsonLibrary.Jackson)
-                .to("direct:processData")
-                .setHeader(KafkaConstants.KEY, constant("person json")) // Key of the message
-                .toD("kafka:PersonTopic?brokers=localhost:9092");
-                //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
-//                .to("activemq:queue:randomdata_queue?connectionFactory=#jms");
-
-        // https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
-        from("kafka:PersonTopic?brokers=localhost:9092&groupId=testinggroup&autoOffsetReset=earliest&consumersCount=1")
-                .log("kafka read/from: ${body}");
+                .to("direct:processData");
 
         // Send data on to either amq or kafka depending on configuration
         // always assign a routeId for easy route identification
@@ -93,9 +88,12 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                     // getting property for spring application.properties file
                     .when(simple("${properties:experiment1.broker_type} == 'kafka'"))
                         .log("broker_type is kafka")
+                        .setHeader(KafkaConstants.KEY, constant("person json")) // Key of the message
+                        .toD("kafka:PersonTopic?brokers=localhost:9092")
                     .otherwise()
                         .log("broker type is activemq")
-                        .to("activemq:queue:randomdata_queue?connectionFactory=#jms")
+                        //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
+                        .toD("activemq:queue:randomdata_queue?connectionFactory=#jms")
                 .end();
 
 
@@ -111,6 +109,13 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // if the rest of the route was ok with dealing with json.
                 .unmarshal().json(JsonLibrary.Jackson, Person.class)
                 .log("Retrieved data from amq queue: ${body}");
+
+        // read data that was written to kafka
+        // note apache website is outdated.  This seems to be more accurate:
+        //   https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
+        from("kafka:PersonTopic?brokers=localhost:9092&groupId=testinggroup&autoOffsetReset=earliest&consumersCount=1")
+                .routeId("route.readFromKafka")
+                .log("Retrieved data from kafka topic: ${body}");
 
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
