@@ -14,36 +14,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
     /**
      * camel kafka component documentaiton:
      * https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
-     * activemq uses VirtualTopic
      * notes on starting kafka
      * hawtio image on website
-     * review kafka
-     * <p>
-     * activemq
-     * read https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#jms
-     * VirtualTopic.
-     * pub.sub=true
-     * multiple activemq hosts
-     * auto jms data coversion without calling marshall
-     * <p>
-     * * look at methods for fluentproducer and routes.
-     * start/stop routes api
-     * choice (header) kafka, amq, randombeans, modelmapper
-     * mimic irsingester logic
-     * review log
-     * commit from intellij - sonar
-     * check actuator endpoints
-     * different components
-     * <p>
-     * auto message converter using jackson - see spring messaging book. won't have to explicitly marshal unmarshal
      * delete xml files i don't use
-     * configure jms connections, caching, templates, pooling so it is more production ready
-     * keep doing notes and sample programs for camel book and learning about the technologies
-     * mongo
-     * * test
-     * * readme file
-     * * image of hawtio
-     * * review code at camelinaction and on website
      * http://localhost:8080/actuator/hawtio/
      * look at hawt io
      */
