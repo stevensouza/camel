@@ -21,6 +21,8 @@ your routes and seeing how much data is passing through and whether or not error
 
 ## [experiment1](https://github.com/stevensouza/camel/tree/master/experiment1) (click to go to the projects source code)
 
+This code requires running Kafka and ActiveMq (see above for instructions for running in docker)
+
 * Technologies used
   * Kafka - read/write from topics
   * JMS/Activemq - read/write VirtualTopic
