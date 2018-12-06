@@ -45,3 +45,9 @@ your routes and seeing how much data is passing through and whether or not error
   * Spring rest controller to start/stop a camel route using the controlbus EIP. Rest endpoints follow
     * http://127.0.0.1:8080/experiment1/start
     * http://127.0.0.1:8080/experiment1/stop
+
+## [xmlxsd](https://github.com/stevensouza/camel/tree/master/xmlxsd) 
+  * xml validation with xsd
+  * niem documents
+  * xml to json conversion
+  * camel
