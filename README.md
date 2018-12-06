@@ -10,6 +10,15 @@ your routes and seeing how much data is passing through and whether or not error
 
 ![hawtio](https://github.com/stevensouza/camel/blob/master/images/hawtio.png)
 
+## Docker info for running programs used in various experiments
+
+* **activemq** - use the following command to run amq docker. activemq is used in experiment1
+  * docker run -p 61616:61616 -p 8161:8161 rmohr/activemq
+  * manage docker via web console - http://localhost:8161/
+* **kafka** - running kafka.  Put local host ip in kafka_experiment1.yml and run the following command (it will start up kafka and zookeeper. kafka will be on localhost:9092 as you can see in application.properties)
+  * docker-compose -f kafka_experiment1.ymll up -d
+
+
 ## [experiment1](https://github.com/stevensouza/camel/tree/master/experiment1) (click to go to the projects source code)
 
 * Technologies used
