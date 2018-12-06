@@ -20,6 +20,7 @@ your routes and seeing how much data is passing through and whether or not error
   * Docker
   * Camel
   * Random beans
+  * Lombok
 * Highlights
   * Components used
     *  schedule - Used 'schedule' component to generate data to send to kafka/amq
