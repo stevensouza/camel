@@ -8,6 +8,9 @@ experiments with apache camel and related technologies
 your routes and seeing how much data is passing through and whether or not errors are happening.
 * Hawt io gives you a way to see JMX data and operations with http/webapp vs using JConsole.
 
+[[https://github.com/stevensouza/camel/blob/master/doc/hawtio.png|alt=hawtio]]
+
+
 
 ## [experiment1](https://github.com/stevensouza/camel/tree/master/experiment1) 
 
