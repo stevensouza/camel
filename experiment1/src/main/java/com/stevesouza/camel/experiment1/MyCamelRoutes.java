@@ -14,11 +14,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
     /**
      * camel kafka component documentaiton:
      * https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
-     * notes on starting kafka
-     * hawtio image on website
-     * delete xml files i don't use
-     * http://localhost:8080/actuator/hawtio/
-     * look at hawt io
+     * <p>
+     * to view hawt io (camel routes, jmx) - http://localhost:8080/actuator/hawtio/
+     * activemq - http://localhost:8161/
      */
 
     // Route from/to information has been externalized into application.properties
