@@ -19,6 +19,7 @@ your routes and seeing how much data is passing through and whether or not error
   * Spring rest
   * Docker
   * Camel
+  * Random beans
 * Highlights
   * Components used
     *  schedule - Used 'schedule' component to generate data to send to kafka/amq
