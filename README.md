@@ -37,6 +37,7 @@ your routes and seeing how much data is passing through and whether or not error
   * Setting camel headers
   * Converting POJO to/from JSON (i.e. marshaling/unmarshaling)
   * Sending 'direct' messages
+  * Random beans library to generate random data
   * Enable spring actuator endpoints (health, metrics,...)
   * Running kafka and activemq via Docker
   * Jms/activemq configuration using Spring
