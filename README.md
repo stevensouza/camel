@@ -10,7 +10,7 @@ your routes and seeing how much data is passing through and whether or not error
 
 ![hawtio](https://github.com/stevensouza/camel/blob/master/images/hawtio.png)
 
-## [experiment1](https://github.com/stevensouza/camel/tree/master/experiment1) 
+## [experiment1](https://github.com/stevensouza/camel/tree/master/experiment1) (click to go to the projects source code)
 
 * Technologies used
   * Kafka - read/write from topics
