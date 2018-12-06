@@ -71,13 +71,11 @@ public class JmsConfig {
      * Reason for this is that it is generally preferable to let the listener container itself handle appropriate caching
      * within its lifecycle.
      * <p>
-     * If isn't clear which factory should be used with camel's from (listener) though the cached one seems to work fine.
-     * <p>
      * These comments and further info was taken from https://codenotfound.com/spring-jms-activemq-example.html
      *
      * @return
      */
-    @Bean("jmsListenerFactory")
+    @Bean
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(singleConnectionFactory());

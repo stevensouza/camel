@@ -5,15 +5,20 @@ import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MyCamelRoutes extends SpringRouteBuilder {
 
     /**
-     * make kafka properties file driven
+     * camel kafka component documentaiton:
+     * https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
      * activemq uses VirtualTopic
-     *
+     * notes on starting kafka
+     * hawtio image on website
+     * review kafka
+     * <p>
      * activemq
      * read https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#jms
      * VirtualTopic.
@@ -43,6 +48,20 @@ public class MyCamelRoutes extends SpringRouteBuilder {
      * look at hawt io
      */
 
+    // Route from/to information has been externalized into application.properties
+    @Value("${camel.route.generateRandomData.from}")
+    private String generateRandomDataFrom;
+
+    @Value("${camel.route.readFromKafka.from}")
+    private String readFromKafkaFrom;
+
+    @Value("${camel.route.processData.kafka.to}")
+    private String processDataKafkaTo;
+
+    @Value("${camel.route.processData.activemq.to}")
+    private String processDataActiveMqTo;
+
+
     // @formatter:off - disable intellij's reformat command from messing up indentation in camel routes
     /** Defined routes:
      *      - route.generateRandomData.controlbus - Called from rest controller to start/stop the main route
@@ -66,7 +85,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
         // Generate random Person data
         // could use timer or quartz instead of schedule component
-        from("scheduler://generate_data?delay=5s")
+        from(generateRandomDataFrom)
                 .routeId("route.generateRandomData")
                 .noAutoStartup() // don't run route on app startup. The control bus below will start/stop it on demand
                 // The methods return value will be used to setBody(..)
@@ -89,11 +108,11 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                     .when(simple("${properties:experiment1.broker_type} == 'kafka'"))
                         .log("broker_type is kafka")
                         .setHeader(KafkaConstants.KEY, constant("person json")) // Key of the message
-                        .toD("kafka:PersonTopic?brokers=localhost:9092")
+                        .toD(processDataKafkaTo)
                     .otherwise()
                         .log("broker type is activemq")
                         //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
-                        .toD("activemq:queue:randomdata_queue?connectionFactory=#jms")
+                        .toD(processDataActiveMqTo)
                 .end();
 
 
@@ -101,8 +120,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // note i use the activemq component.  it inherits from the jms component and uses the same properties
         // however it is more efficient than jms.
         // read from activemq
-        from("activemq:queue:randomdata_queue?connectionFactory=#jms")
-                .routeId("route.readFromJms")
+        // showing alternative way of defining from clause in a property
+         from(simple("{{camel.route.readFromActiveMq.from}}").getText())
+                .routeId("route.readFromActiveMq")
                 // note if i didn't unmarshal json text would print instead of the toString method
                 // also i believe you can register a MessageConverter that puts the class name in a message
                 // header and you don't need to specify the class explicitly. You wouldn't need to unmarshal
@@ -113,7 +133,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // read data that was written to kafka
         // note apache website is outdated.  This seems to be more accurate:
         //   https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
-        from("kafka:PersonTopic?brokers=localhost:9092&groupId=testinggroup&autoOffsetReset=earliest&consumersCount=1")
+        from(readFromKafkaFrom)
                 .routeId("route.readFromKafka")
                 .log("Retrieved data from kafka topic: ${body}");
 
