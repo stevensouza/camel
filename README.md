@@ -58,6 +58,9 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * http://127.0.0.1:8080/experiment1/start
     * http://127.0.0.1:8080/experiment1/stop
 
+## [cameldemo](https://github.com/stevensouza/cameldemo)
+  * uses camel, jms/activemq, mongo, docker
+
 ## [xmlxsd](https://github.com/stevensouza/camel/tree/master/xmlxsd) 
   * xml validation with xsd
   * niem documents
