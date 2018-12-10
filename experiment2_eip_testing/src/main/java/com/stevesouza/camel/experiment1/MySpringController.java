@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/experiment1")
 @Slf4j
 public class MySpringController {
-    @Value("${experiment1.broker_type}")
-    private String brokerType;
 
     // note you could reuse the same FluentProducerTemplate and set the endpoint (probably template.to("direct:start")
     @EndpointInject(uri = "direct:generateRandomData.controlbus")

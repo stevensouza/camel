@@ -23,22 +23,25 @@ public class MyCamelRoutes extends SpringRouteBuilder {
     @Value("${camel.route.generateRandomData.from}")
     private String generateRandomDataFrom;
 
-    @Value("${camel.route.readFromKafka.from}")
-    private String readFromKafkaFrom;
-
-    @Value("${camel.route.processData.kafka.to}")
-    private String processDataKafkaTo;
+//    @Value("${camel.route.readFromKafka.from}")
+//    private String readFromKafkaFrom;
+//
+//    @Value("${camel.route.processData.kafka.to}")
+//    private String processDataKafkaTo;
 
     @Value("${camel.route.processData.activemq.to}")
-    private String processDataActiveMqTo;
+    private String writeToAmq;
+
+    @Value("${camel.route.readFromActiveMq.from}")
+    private String readFromAmq;
 
 
     // @formatter:off - disable intellij's reformat command from messing up indentation in camel routes
     /** Defined routes:
      *      - route.generateRandomData.controlbus - Called from rest controller to start/stop the main route
-     *          (route.generateRandomData)
-     *      - route.generateRandomData - generate person data and write to amq/kafka
-     *
+     *          (route.generateAndWriteRandomDataToAmq")
+     *      - route.generateAndWriteRandomDataToAmq" - generate random data and write it to amq
+     *      - route.readFromActiveMq - read the data generated above from amq
      */
     @Override
     public void configure() {
@@ -46,66 +49,29 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
-        // Control main route
+        // Control main route - start/stop data generation via rest
         from("direct:generateRandomData.controlbus")
                .routeId("route.generateRandomData.controlbus")
                .log("action=${header.action}")
                // controlbus is an eip that allows you to start/stop/suspend/resume routes among other things.
-               .toD("controlbus:route?routeId=route.generateRandomData&action=${header.action}")
+               .toD("controlbus:route?routeId=route.generateAndWriteRandomDataToAmq&action=${header.action}")
                .transform(simple("Action taken on route: ${header.action}"));
 
-        // Generate random Person data
-        // could use timer or quartz instead of schedule component
+        // Generate random Person data and write to amq
         from(generateRandomDataFrom)
-                .routeId("route.generateRandomData")
+                .routeId("route.generateAndWriteRandomDataToAmq")
                 .noAutoStartup() // don't run route on app startup. The control bus below will start/stop it on demand
                 // The methods return value will be used to setBody(..)
                 .bean(GenerateData.class)
-                .log("Generated random data=${body}")
+                .log("Generated & writing random pojo data to amq. Data=${body}")
                 .marshal().json(JsonLibrary.Jackson)
-                .to("direct:processData");
-
-        // Send data on to either amq or kafka depending on configuration
-        // always assign a routeId for easy route identification
-        //.noAutoStartup()
-        // You can set a node description with: .description("my description")
-        from("direct:processData")
-              .routeId("route.processData")// set the route name and description which will display in hawtio
-              .routeDescription("Route that either sends message to kafka, or amq based on config property")
-              .log("Processing data=${body}")
-                .choice()
-                    .id("Choice: kafka or amq?")// the name for this 'choice' node which will show up in hawtio route diagram
-                    // getting property for spring application.properties file
-                    .when(simple("${properties:experiment1.broker_type} == 'kafka'"))
-                        .log("broker_type is kafka")
-                        .setHeader(KafkaConstants.KEY, constant("person json")) // Key of the message
-                        .toD(processDataKafkaTo)
-                    .otherwise()
-                        .log("broker type is activemq")
-                        //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
-                        .toD(processDataActiveMqTo)
-                .end();
+                 //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
+                .toD(writeToAmq);
 
 
-
-        // note i use the activemq component.  it inherits from the jms component and uses the same properties
-        // however it is more efficient than jms.
-        // read from activemq
-        // showing alternative way of defining from clause in a property
-         from(simple("{{camel.route.readFromActiveMq.from}}").getText())
+        // read data that was written to amq
+        from(readFromAmq)
                 .routeId("route.readFromActiveMq")
-                // note if i didn't unmarshal json text would print instead of the toString method
-                // also i believe you can register a MessageConverter that puts the class name in a message
-                // header and you don't need to specify the class explicitly. You wouldn't need to unmarshal
-                // if the rest of the route was ok with dealing with json.
-                .unmarshal().json(JsonLibrary.Jackson, Person.class)
-                .log("Retrieved data from amq queue: ${body}");
-
-        // read data that was written to kafka
-        // note apache website is outdated.  This seems to be more accurate:
-        //   https://github.com/apache/camel/blob/master/components/camel-kafka/src/main/docs/kafka-component.adoc
-        from(readFromKafkaFrom)
-                .routeId("route.readFromKafka")
                 .log("Retrieved data from kafka topic: ${body}");
 
     }
