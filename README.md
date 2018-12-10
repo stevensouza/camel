@@ -19,7 +19,7 @@ your routes and seeing how much data is passing through and whether or not error
   * docker-compose -f kafka_experiment1.ymll up -d
 
 
-## [experiment1](https://github.com/stevensouza/camel/tree/master/experiment1) (click to go to the projects source code)
+## [experiment1_kafka_amq](https://github.com/stevensouza/camel/tree/master/experiment1_kafka_amq) (click to go to the projects source code)
 
 This code requires running Kafka and ActiveMq (see above for instructions for running in docker)
 
