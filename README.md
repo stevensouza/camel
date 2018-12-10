@@ -27,7 +27,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Kafka - read/write from topics
   * JMS/Activemq - read/write VirtualTopic
   * Spring boot
-  * Spring rest
+  * Spring rest/controller
   * Docker
   * Camel
   * Random beans
