@@ -69,10 +69,16 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   
 ## camel from playground
   * [Code](https://github.com/stevensouza/testproject/tree/master/playground/src/main/java/com/stevesouza/camel)
+     * EventNotifierSupport
+     * Component: File
+     * Camel Annotations: @Header, @Body, @Simple
+     * json marshal/unmarshal using xstream and jackson
+     * Processor
   * [Tests](https://github.com/stevensouza/testproject/tree/master/playground/src/test/java/com/stevesouza/camel)
-     * mocks, assertions
-     * components: direct, seda, stream
+     * assertions
+     * Components: direct, seda, stream, mock
      * EIPs: filter (on header), multicast
      * intercept, interceptFrom, interceptSendToEndpoint
+     * Processor
      * json marshal/unmarshal
   
