@@ -67,7 +67,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * xml to json conversion
   * camel
   
-## camel from playground
+## camel from testproject playground
   * [Code](https://github.com/stevensouza/testproject/tree/master/playground/src/main/java/com/stevesouza/camel)
      * EventNotifierSupport
      * Component: File
