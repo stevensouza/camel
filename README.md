@@ -66,3 +66,13 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * niem documents
   * xml to json conversion
   * camel
+  
+## camel from playground
+  * [Code](https://github.com/stevensouza/testproject/tree/master/playground/src/main/java/com/stevesouza/camel)
+  * [Tests](https://github.com/stevensouza/testproject/tree/master/playground/src/test/java/com/stevesouza/camel)
+     * mocks, assertions
+     * components: direct, seda, stream
+     * EIPs: filter (on header), multicast
+     * intercept, interceptFrom, interceptSendToEndpoint
+     * json marshal/unmarshal
+  
