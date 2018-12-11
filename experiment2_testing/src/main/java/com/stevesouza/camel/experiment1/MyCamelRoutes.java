@@ -23,12 +23,6 @@ public class MyCamelRoutes extends SpringRouteBuilder {
     @Value("${camel.route.generateRandomData.from}")
     private String generateRandomDataFrom;
 
-//    @Value("${camel.route.readFromKafka.from}")
-//    private String readFromKafkaFrom;
-//
-//    @Value("${camel.route.processData.kafka.to}")
-//    private String processDataKafkaTo;
-
     @Value("${camel.route.processData.activemq.to}")
     private String writeToAmq;
 
@@ -51,22 +45,26 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
         // Control main route - start/stop data generation via rest
         from("direct:generateRandomData.controlbus")
+                // note routeId's are helpful in the following ways: they write the name to the logs
+                // , make routes readable in hawtio console, allow you to grab and manipulate (for example adding advice)
+                // the route easily in tests.
                .routeId("route.generateRandomData.controlbus")
                .log("action=${header.action}")
                // controlbus is an eip that allows you to start/stop/suspend/resume routes among other things.
                .toD("controlbus:route?routeId=route.generateAndWriteRandomDataToAmq&action=${header.action}")
+                // you get this data back with reply request
                .transform(simple("Action taken on route: ${header.action}"));
 
         // Generate random Person data and write to amq
         from(generateRandomDataFrom)
                 .routeId("route.generateAndWriteRandomDataToAmq")
                 .noAutoStartup() // don't run route on app startup. The control bus below will start/stop it on demand
-                // The methods return value will be used to setBody(..)
+                // The methods return value will be used to generate a random Person object and populate setBody(..) with it
                 .bean(GenerateData.class)
                 .log("Generated & writing random pojo data to amq. Data=${body}")
                 .marshal().json(JsonLibrary.Jackson)
                  //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
-                .toD(writeToAmq).id("amqdest");
+                .toD(writeToAmq).id("amqdest"); // can use the id in tests with advice: weaveById("amqdest").replace() (remove() etc.)
 
 
         // read data that was written to amq

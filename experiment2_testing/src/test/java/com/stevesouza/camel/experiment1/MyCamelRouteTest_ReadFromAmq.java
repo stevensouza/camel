@@ -29,8 +29,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(CamelSpringBootRunner.class)
 @UseAdviceWith
 @SpringBootApplication
-@SpringBootTest(classes = MyCamelRouteTest.class)
-public class MyCamelRouteTest {
+@SpringBootTest(classes = MyCamelRouteTest_ReadFromAmq.class)
+public class MyCamelRouteTest_ReadFromAmq {
 
     @Autowired
     private FluentProducerTemplate fluentTemplate;
@@ -44,7 +44,7 @@ public class MyCamelRouteTest {
 
     @Test
     public void testWriteToAmq() throws Exception {
-        RouteDefinition route = context.getRouteDefinition("route.generateAndWriteRandomDataToAmq");
+        RouteDefinition route = context.getRouteDefinition("route.readFromActiveMq");
         route.adviceWith(context, new AdviceWithRouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -54,8 +54,7 @@ public class MyCamelRouteTest {
                 // change the consumer to take 'direct' input so we don't have any external dependencies for the test.
                 replaceFromWith("direct:data");
                 // replace the 'to' output with a mock so we can test that it is receiving the expected output
-                interceptSendToEndpoint("activemq:*")
-                        .skipSendToOriginalEndpoint()
+                weaveAddLast()
                         .to("mock:result");
 
                 // restart the route under test.
@@ -65,32 +64,27 @@ public class MyCamelRouteTest {
         });
         // @UseAdviceWith disables the camelContext startup, so you can manipulate the routes, so we will now start it for test
         context.start();
-        
+
+        // note it doesn't matter what is in body as the body is for this route.
+        String body1 = "body1";
+        String body2 = "body2";
+
         // get the mockendpoint so we can set expectations for the asserts
         MockEndpoint mock = context.getEndpoint("mock:result", MockEndpoint.class);
         mock.expectedMessageCount(2);
+        mock.expectedBodiesReceivedInAnyOrder(body1, body2);
         mock.allMessages().body().isNotNull();
-        // nonsensical test just to give an idea how it would work
-        mock.allMessages().header("delme").isNull();
-        mock.allMessages().header("hello").isEqualTo("world");
+        mock.allMessages().body().contains("body");
+        mock.expectsNoDuplicates().body();
 
-        // note it doesn't matter what is in body as the body/Person object is generated in the route under test.
-        String body = "anything";
-
-        template.sendBodyAndHeader("direct:data", body, "hello", "world");
+        template.sendBody("direct:data", body1);
         fluentTemplate
-                .withHeader("hello", "world")
                 .to("direct:data")
-                .withBody(body)
+                .withBody(body2)
                 .send();
 
-
+        // asserts all mocks defined
         MockEndpoint.assertIsSatisfied(context);
-
-        String json1 = mock.getExchanges().get(0).getMessage().getBody(String.class);
-        assertThat(json1).contains("personDescriptionText");
-        // no assertion set but an exception will be thrown if it can't convert the json into Person
-        MiscUtils.convert(json1, Person.class);
 
     }
 
