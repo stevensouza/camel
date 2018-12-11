@@ -7,12 +7,14 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.test.spring.CamelSpringBootRunner;
+import org.apache.camel.test.spring.DisableJmx;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 /**
  * Configuration of test classes was taken primarily from here.  Documentation for spring boot testing using adviceWith is
@@ -22,11 +24,17 @@ import org.springframework.boot.test.context.SpringBootTest;
  * <p>
  * Another source https://tech.willhaben.at/testing-apache-camel-applications-with-spring-boot-da536568d9f7
  */
+
 @RunWith(CamelSpringBootRunner.class)
+// doesn't start up camel and let's you perform surgergy/advice on the routes before manually starting
 @UseAdviceWith
 @SpringBootApplication
-@SpringBootTest(classes = MyCamelRouteTest_ReadFromAmq.class)
-public class MyCamelRouteTest_ReadFromAmq {
+@SpringBootTest(classes = MyCamelRoute_ReadFromAmq_Test.class)
+// restarts spring and so camel after each test. when i didn't do this the mocks had stale info in them
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+// not needed, but example did this.
+@DisableJmx()
+public class MyCamelRoute_ReadFromAmq_Test {
 
     @Autowired
     private FluentProducerTemplate fluentTemplate;

@@ -9,12 +9,15 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.test.spring.CamelSpringBootRunner;
+import org.apache.camel.test.spring.DisableJmx;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,11 +29,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>
  * Another source https://tech.willhaben.at/testing-apache-camel-applications-with-spring-boot-da536568d9f7
  */
+
+// uses application-test.properties which overrides 'from' to use 'direct' and 'to' to use 'mock' endpoints.
+@ActiveProfiles("test")
 @RunWith(CamelSpringBootRunner.class)
+// doesn't start up camel and let's you perform surgergy/advice on the routes before manually starting
 @UseAdviceWith
 @SpringBootApplication
-@SpringBootTest(classes = MyCamelRouteTest_WriteToAmq.class)
-public class MyCamelRouteTest_WriteToAmq {
+@SpringBootTest(classes = MyCamelRoute_Profile_Test.class)
+// restarts spring and so camel after each test. when i didn't do this the mocks had stale info in them
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+// not needed, but example did this.
+@DisableJmx()
+public class MyCamelRoute_Profile_Test {
 
     @Autowired
     private FluentProducerTemplate fluentTemplate;
@@ -41,7 +52,6 @@ public class MyCamelRouteTest_WriteToAmq {
     @Autowired
     private ModelCamelContext context;
 
-
     @Test
     public void testWriteToAmq() throws Exception {
         RouteDefinition route = context.getRouteDefinition("route.generateAndWriteRandomDataToAmq");
@@ -50,13 +60,6 @@ public class MyCamelRouteTest_WriteToAmq {
             public void configure() throws Exception {
                 // disable startup of all routes as we only want to run the one under test which we will later reenable.
                 context.getRouteDefinitions().forEach(RouteDefinition::noAutoStartup);
-
-                // change the consumer to take 'direct' input so we don't have any external dependencies for the test.
-                replaceFromWith("direct:data");
-                // replace the 'to' output with a mock so we can test that it is receiving the expected output
-                interceptSendToEndpoint("activemq:*")
-                        .skipSendToOriginalEndpoint()
-                        .to("mock:result");
 
                 // restart the route under test.
                 getOriginalRoute().autoStartup(true);
@@ -95,6 +98,5 @@ public class MyCamelRouteTest_WriteToAmq {
         MiscUtils.convert(json1, Person.class);
 
     }
-
 
 }
