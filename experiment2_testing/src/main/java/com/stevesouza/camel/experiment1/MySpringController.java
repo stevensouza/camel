@@ -4,7 +4,6 @@ package com.stevesouza.camel.experiment1;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.FluentProducerTemplate;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -2,8 +2,6 @@ package com.stevesouza.camel.experiment1.utils;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stevesouza.camel.experiment1.data.Person;
-import io.github.benas.randombeans.api.EnhancedRandom;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -148,7 +146,6 @@ public class MiscUtils {
             super(message, cause);
         }
     }
-
 
 
 }

@@ -1,7 +1,5 @@
 package com.stevesouza.camel.experiment1;
 
-import com.stevesouza.camel.experiment1.data.Person;
-import com.stevesouza.camel.experiment1.utils.MiscUtils;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -15,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Configuration of test classes was taken primarily from here.  Documentation for spring boot testing using adviceWith is

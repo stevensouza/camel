@@ -1,7 +1,5 @@
 package com.stevesouza.camel.experiment1;
 
-import com.stevesouza.camel.experiment1.data.Person;
-import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
