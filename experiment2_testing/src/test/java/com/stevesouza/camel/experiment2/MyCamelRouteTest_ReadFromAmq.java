@@ -1,4 +1,4 @@
-package com.stevesouza.camel.experiment1;
+package com.stevesouza.camel.experiment2;
 
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;

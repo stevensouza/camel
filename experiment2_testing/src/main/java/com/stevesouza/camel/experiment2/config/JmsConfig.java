@@ -1,4 +1,4 @@
-package com.stevesouza.camel.experiment1.config;
+package com.stevesouza.camel.experiment2.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQSslConnectionFactory;

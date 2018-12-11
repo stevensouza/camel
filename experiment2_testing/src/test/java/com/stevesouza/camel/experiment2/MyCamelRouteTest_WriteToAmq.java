@@ -1,7 +1,7 @@
-package com.stevesouza.camel.experiment1;
+package com.stevesouza.camel.experiment2;
 
-import com.stevesouza.camel.experiment1.data.Person;
-import com.stevesouza.camel.experiment1.utils.MiscUtils;
+import com.stevesouza.camel.experiment2.data.Person;
+import com.stevesouza.camel.experiment2.utils.MiscUtils;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;

@@ -1,4 +1,4 @@
-package com.stevesouza.camel.experiment1.data;
+package com.stevesouza.camel.experiment2.data;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
