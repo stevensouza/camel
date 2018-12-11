@@ -66,7 +66,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .log("Generated & writing random pojo data to amq. Data=${body}")
                 .marshal().json(JsonLibrary.Jackson)
                  //  '#jms' is used to look up the spring bean of that name to get the connectionFactory from
-                .toD(writeToAmq);
+                .toD(writeToAmq).id("amqdest");
 
 
         // read data that was written to amq

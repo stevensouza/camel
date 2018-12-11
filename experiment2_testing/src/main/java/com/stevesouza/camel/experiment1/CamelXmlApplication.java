@@ -2,6 +2,7 @@ package com.stevesouza.camel.experiment1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class CamelXmlApplication {
@@ -14,7 +15,11 @@ public class CamelXmlApplication {
      * @param args
      */
     public static void main(String[] args) {
-        SpringApplication.run(CamelXmlApplication.class, args);
+        createContext(args);
+    }
+
+    public static ConfigurableApplicationContext createContext(String[] args) {
+        return SpringApplication.run(CamelXmlApplication.class, args);
     }
 
 }

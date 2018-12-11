@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.stevesouza</groupId>
-	<artifactId>camel_experiment2_eip_testing</artifactId>
+	<artifactId>camel_experiment2_testing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>camel_experiment2_eip_testing</name>
+	<name>camel_experiment2_testing</name>
 	<description>Demo camel for Spring Boot demonstrating some EIPs and also how to test in camel</description>
 
 	<parent>
@@ -84,6 +84,13 @@
 			<version>${camel.version}</version>
 		</dependency>
 
+		<!--for testing -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring-javaconfig-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-metrics-starter</artifactId>
@@ -138,7 +145,18 @@
 			<artifactId>camel-msv</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+
+		<!--camel test -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring</artifactId>
+			<version>${camel.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- END camel libraries-->
+
+
 
 
 
@@ -162,6 +180,13 @@
             <version>3.7.0</version>
         </dependency>
 
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+
 		<!--<dependency>-->
 			<!--<groupId>org.apache.activemq</groupId>-->
 			<!--<artifactId>activemq-broker</artifactId>-->
@@ -183,6 +208,21 @@
 		</dependency>
 
 		<!-- END XML processing libraries-->
+
+		<!--test libraries-->
+		<!-- bean comparisons like from entity to vo -->
+		<dependency>
+			<groupId>com.shazam</groupId>
+			<artifactId>shazamcrest</artifactId>
+			<version>0.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.skyscreamer</groupId>
+			<artifactId>jsonassert</artifactId>
+			<version>1.5.0</version>
+		</dependency>
 
 	</dependencies>
 
