@@ -36,6 +36,14 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .routeId("route.helloWorld")
                 .transform().simple("hello world");
 
+        restConfiguration()
+                .contextPath("rest")
+                .port(port);
+
+        // returns person.toString();
+        rest().produces("text/plain")
+                .get("/random").to("bean:generateData?method=getRandomPerson");
+
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
 

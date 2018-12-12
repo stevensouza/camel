@@ -5,8 +5,10 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Handler;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class GenerateData {
 
     // The annotation lets camel know to use this method.  Currently as this class only has one method it doesn't really need it though
