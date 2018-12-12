@@ -57,6 +57,16 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Spring rest controller to start/stop a camel route using the controlbus EIP. Rest endpoints follow
     * http://127.0.0.1:8080/experiment1/start
     * http://127.0.0.1:8080/experiment1/stop
+    
+## [experiment2_testing](https://github.com/stevensouza/experiment2_testing)
+  * Spring boot camel app that replaces camel endpoints (from/to) with 'direct' and 'mock' to test the routes.
+  * Uses
+    * Camel testing techniques
+    * adviceWith - to alter routes in tests
+    * mocks
+    * ProducerTemplate and FluentProducerTemplate
+    * A spring boot 'test' profile
+    * activemq/jms endpoints
 
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongo, docker
