@@ -97,9 +97,17 @@
 			<version>${camel.version}</version>
 		</dependency>
 
+		<!--enables json-->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jackson-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<!--enables xml-->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jaxb-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 
@@ -123,9 +131,15 @@
 			<version>${camel.version}</version>
 		</dependency>
 
+		<!--<dependency>-->
+			<!--<groupId>org.apache.camel</groupId>-->
+			<!--<artifactId>camel-jetty-starter</artifactId>-->
+			<!--<version>${camel.version}</version>-->
+		<!--</dependency>-->
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jetty-starter</artifactId>
+			<artifactId>camel-servlet-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 		<!-- xml processing -->
