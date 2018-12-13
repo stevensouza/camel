@@ -56,6 +56,10 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .bindingMode(RestBindingMode.json_xml)
                 .dataFormatProperty("prettyPrint", "true");
                 */
+        // available at endpoint: http://localhost:8080/rest/swagger
+        restConfiguration()
+                .apiContextPath("swagger")
+                .apiContextRouteId("route.swagger");
 
         // using servlet component and not rest dsl. note could also use jetty as above
         // will use localhost:8080/rest/hello - using default tomcat server
@@ -66,8 +70,12 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
          // note you need to call 'route()' to access the underlying route to call transform and many of the other eip's.
          rest()
-                .produces(MediaType.TEXT_PLAIN_VALUE)
                 .get("/hi")
+                 // swagger documentation - note you can also document parameters and more though it is a bit wordy
+                    .description("endpoint that says hi")
+                    .responseMessage().code(200).message("call to hi was successful").endResponseMessage()
+                 // end swagger
+                .produces(MediaType.TEXT_PLAIN_VALUE)
                 .route().routeId("route.servlet.hi")
                 .transform(constant("hi world"));
 
