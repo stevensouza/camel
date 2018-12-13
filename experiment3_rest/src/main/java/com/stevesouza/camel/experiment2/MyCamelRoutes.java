@@ -46,14 +46,16 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // will use localhost:8080/rest/hello - using default tomcat server
         // default would be localhost:8080/camel/hello
          from("servlet://hello")
-                .routeId("route.helloWorld")
+                .routeId("route.servlet.helloWorld")
                 .transform().simple("hello world");
 
 
-        // returns person.toString();
+        // returns random person object as either json or xml, but defaults to json
         rest()
                 .produces(MediaType.APPLICATION_JSON.toString())
                 .get("/random")
+                .route().routeId("route.servlet.randomPerson")
+                // .bean(GenerateData.class) // This should work too.  Looks like you can act on it like a regular route too.
                 .to("bean:generateData?method=getRandomPerson");
 
     }
