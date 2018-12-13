@@ -1,8 +1,9 @@
 package com.stevesouza.camel.experiment2;
 
+import com.stevesouza.camel.experiment2.utils.ThrowException;
+import org.apache.camel.Exchange;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.spring.SpringRouteBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,17 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // enable dropwizard metrics - not required
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
+
+        onException(Exception.class)
+            .handled(true)
+            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+            .setBody(
+                    simpleF("HTTP status code: %s\nMessage: %s\nStacktrace: %s",
+                    "${header.CamelHttpResponseCode}",
+                    "${exception.message}",
+                    "${exception.stacktrace}")
+            );
+
 
         /*  If you use camel-jetty-starter can do this however then it loads both tomcat and jetty, so using 'servlet'
             component just reuses tomcat:
@@ -66,6 +78,13 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .route().routeId("route.servlet.randomPerson")
                 // .bean(GenerateData.class) // This should work too.  Looks like you can act on it like a regular route too.
                 .to("bean:generateData?method=getRandomPerson");
+
+        // this will trigger onException mapping to status codes above i.e. http status 500 is mapped to the exception
+        rest("/exception")
+                .produces(MediaType.TEXT_PLAIN_VALUE)
+                .get()
+                .route().routeId("route.servlet.exception")
+                .bean(ThrowException.class, "throwException");
 
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
