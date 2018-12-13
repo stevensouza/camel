@@ -28,19 +28,22 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
-//  If you use camel-jetty-starter can do this however then it loads both tomcat and jetty, so using 'servlet'
-// component just reuses tomcat
-//        from("jetty://http://0.0.0.0:{{camel.route.http.port}}/hello")
-//                .routeId("route.helloWorld")
-//                .transform().simple("hello world");
+        /*  If you use camel-jetty-starter can do this however then it loads both tomcat and jetty, so using 'servlet'
+            component just reuses tomcat:
 
-//      Could configure like the below, but instead I did it in application.properties
-//       restConfiguration()
-//                .contextPath("rest"). // uses '/camel' by default
-// the following are set in application properties or default is taken.
-//                .port(port)
-//                .bindingMode(RestBindingMode.json_xml)
-//                .dataFormatProperty("prettyPrint", "true");
+        from("jetty://http://0.0.0.0:{{camel.route.http.port}}/hello")
+                .routeId("route.helloWorld")
+                .transform().simple("hello world");
+        */
+
+        /* Could configure like the below, but instead I did it in application.properties:
+
+       restConfiguration()
+                .contextPath("rest"). // uses '/camel' by default the following are set in application properties or default is taken.
+                .port(port)
+                .bindingMode(RestBindingMode.json_xml)
+                .dataFormatProperty("prettyPrint", "true");
+                */
 
         // using servlet component and not rest dsl. note could also use jetty as above
         // will use localhost:8080/rest/hello - using default tomcat server
