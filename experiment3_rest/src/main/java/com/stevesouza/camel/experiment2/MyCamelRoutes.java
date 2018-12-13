@@ -49,10 +49,16 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .routeId("route.servlet.helloWorld")
                 .transform().simple("hello world");
 
+         // note you need to call 'route()' to access the underlying route to call transform and many of the other eip's.
+         rest()
+                .produces(MediaType.TEXT_PLAIN_VALUE)
+                .get("/hi")
+                .route().routeId("route.servlet.hi")
+                .transform(constant("hi world"));
 
         // returns random person object as either json or xml, but defaults to json
         rest()
-                .produces(MediaType.APPLICATION_JSON.toString())
+                .produces(MediaType.APPLICATION_JSON_VALUE)
                 .get("/random")
                 .route().routeId("route.servlet.randomPerson")
                 // .bean(GenerateData.class) // This should work too.  Looks like you can act on it like a regular route too.
