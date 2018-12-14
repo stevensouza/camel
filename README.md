@@ -1,4 +1,4 @@
-# Apache Camel
+# Apache Camel Sample Programs
 experiments with apache camel and related technologies. Below is a brief description of the programs.
 
 ## Running programs
