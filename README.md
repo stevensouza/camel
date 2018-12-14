@@ -24,7 +24,7 @@ your routes and seeing how much data is passing through and whether or not error
     * From Shell
       * To run program that allows for executing mongodb commands execute:
         * mongo mongodb:27017
-      * mongodb commands
+      * Some mongodb commands
         * show dbs
         * use pojodb
         * db.mypojo.count();
