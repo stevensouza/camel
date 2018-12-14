@@ -17,7 +17,16 @@ your routes and seeing how much data is passing through and whether or not error
   * manage docker via web console - http://localhost:8161/
 * **kafka** - running kafka.  Put local host ip in [kafka_experiment1.yml](https://github.com/stevensouza/camel/blob/master/docker/kafka_experiment1.yml) and run the following command (it will start up kafka and zookeeper. kafka will be on localhost:9092 as you can see in application.properties)
   * docker-compose -f kafka_experiment1.ymll up -d
-
+* **mongodb** -  Run the following or start up mongodb in some other way on localhost and port 27017
+  * docker run --name mongo-camel -p 27017:27017  -d mongo
+  * to see data
+    * docker run -it --link=mongo-camel  mongo /bin/bash
+    * From Shell
+      * mongo mongodb:27017
+      * show dbs
+      * use pojodb
+      * db.mypojo.count();
+      * db.mypojo.find();
 
 ## [experiment1_kafka_amq](https://github.com/stevensouza/camel/tree/master/experiment1_kafka_amq) (click to go to the projects source code)
 
