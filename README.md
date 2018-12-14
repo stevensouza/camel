@@ -67,7 +67,25 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * ProducerTemplate and FluentProducerTemplate
     * A spring boot 'test' profile
     * activemq/jms endpoints
-
+    * hawtio/jolokia
+    
+## [experiment3_rest](https://github.com/stevensouza/experiment3_rest)
+  * Spring boot camel app that uses rest endpoints.
+  * Uses
+    * xml/json generation 
+    * routeId's
+    * startupOrder
+    * transform EIP
+    * swagger api and swagger annotations and route metadata
+    * log component and log EIP
+    * Calling a bean from a route
+    * onExeption for exception handling and throwing an exception from a route
+    * Disable intellij formatting for routes
+    * Various properties set in application.properties
+    * Setting a camel header (setHeader) and setting the body (setBody)
+    * lombok
+    * hawtio/jolokia
+    
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongo, docker
 
