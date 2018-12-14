@@ -150,7 +150,7 @@
 			<artifactId>camel-swagger-java-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		
+
 		<!-- xml processing -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
