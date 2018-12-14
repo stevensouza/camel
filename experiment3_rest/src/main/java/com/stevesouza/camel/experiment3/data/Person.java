@@ -1,4 +1,4 @@
-package com.stevesouza.camel.experiment2.data;
+package com.stevesouza.camel.experiment3.data;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

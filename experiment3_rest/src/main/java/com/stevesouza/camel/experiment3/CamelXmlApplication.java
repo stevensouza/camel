@@ -1,4 +1,4 @@
-package com.stevesouza.camel.experiment2;
+package com.stevesouza.camel.experiment3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

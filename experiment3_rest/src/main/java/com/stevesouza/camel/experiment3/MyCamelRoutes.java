@@ -1,6 +1,6 @@
-package com.stevesouza.camel.experiment2;
+package com.stevesouza.camel.experiment3;
 
-import com.stevesouza.camel.experiment2.utils.ThrowException;
+import com.stevesouza.camel.experiment3.utils.ThrowException;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.spring.SpringRouteBuilder;

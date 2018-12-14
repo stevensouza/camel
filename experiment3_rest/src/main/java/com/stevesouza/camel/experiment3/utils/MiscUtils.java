@@ -1,4 +1,4 @@
-package com.stevesouza.camel.experiment2.utils;
+package com.stevesouza.camel.experiment3.utils;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
