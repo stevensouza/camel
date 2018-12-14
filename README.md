@@ -22,11 +22,12 @@ your routes and seeing how much data is passing through and whether or not error
   * To see data in mongodb
     * docker run -it --link=mongo-camel  mongo /bin/bash
     * From Shell
-      * mongo mongodb:27017
-      * show dbs
-      * use pojodb
-      * db.mypojo.count();
-      * db.mypojo.find();
+      * execute: mongo mongodb:27017
+      * mongodb commands
+        * show dbs
+        * use pojodb
+        * db.mypojo.count();
+        * db.mypojo.find();
   * [Usage in application.properties](https://github.com/stevensouza/cameldemo/blob/master/src/main/resources/application.properties)    
 
 ## [experiment1_kafka_amq](https://github.com/stevensouza/camel/tree/master/experiment1_kafka_amq) (click to go to the projects source code)
