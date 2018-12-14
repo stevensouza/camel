@@ -19,7 +19,7 @@ your routes and seeing how much data is passing through and whether or not error
   * docker-compose -f kafka_experiment1.ymll up -d
 * **mongodb** -  Run the following or start up mongodb in some other way on localhost and port 27017
   * docker run --name mongo-camel -p 27017:27017  -d mongo
-  * to see data
+  * To see data in mongodb
     * docker run -it --link=mongo-camel  mongo /bin/bash
     * From Shell
       * mongo mongodb:27017
@@ -27,6 +27,7 @@ your routes and seeing how much data is passing through and whether or not error
       * use pojodb
       * db.mypojo.count();
       * db.mypojo.find();
+  * [Usage in application.properties](https://github.com/stevensouza/cameldemo/blob/master/src/main/resources/application.properties)    
 
 ## [experiment1_kafka_amq](https://github.com/stevensouza/camel/tree/master/experiment1_kafka_amq) (click to go to the projects source code)
 
