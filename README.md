@@ -22,7 +22,8 @@ your routes and seeing how much data is passing through and whether or not error
   * To see data in mongodb
     * docker run -it --link=mongo-camel  mongo /bin/bash
     * From Shell
-      * execute: mongo mongodb:27017
+      * To run program that allows for executing mongodb commands execute:
+        * mongo mongodb:27017
       * mongodb commands
         * show dbs
         * use pojodb
