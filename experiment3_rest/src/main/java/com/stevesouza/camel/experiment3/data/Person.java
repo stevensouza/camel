@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Person {
     // The following annotation documents the model object for swagger.
-    @ApiModelProperty(value="The persons name", required = true)
+    @ApiModelProperty(value = "The persons name", required = true)
     private PersonName personName;
-    @ApiModelProperty(value="Describe the person", example = "This is Joe. He is a nice guy with brown hair.")
+    @ApiModelProperty(value = "Describe the person", example = "This is Joe. He is a nice guy with brown hair.")
     private String personDescriptionText;
-    @ApiModelProperty(value="The age of the person")
+    @ApiModelProperty(value = "The age of the person")
     private int age;
 }
