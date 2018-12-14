@@ -1,5 +1,5 @@
-# camel
-experiments with apache camel and related technologies. Below is a brief explanation of the programs.
+# Apache Camel
+experiments with apache camel and related technologies. Below is a brief description of the programs.
 
 ## Running programs
 * To run the programs in any of the directories:  mvn spring-boot:run
