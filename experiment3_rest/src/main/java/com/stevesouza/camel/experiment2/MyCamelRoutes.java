@@ -29,6 +29,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
+        // handled(true) means that the exception won’t be propagated up the route to the caller.
+        // it is like handling the exception in the catch block.  This also means that the original route
+        // is broken and flow continues here to the end.
         onException(Exception.class)
             .handled(true)
             .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
@@ -66,6 +69,9 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // default would be localhost:8080/camel/hello
          from("servlet://hello")
                 .routeId("route.servlet.helloWorld")
+                // will be started and stopped first. developers have from #'s 1 to 999.  with later versions camel is smarter and so you
+                // need to do this less often
+                .startupOrder(1)
                 .transform().simple("hello world");
 
          // note you need to call 'route()' to access the underlying route to call transform and many of the other eip's.
@@ -84,8 +90,14 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .produces(MediaType.APPLICATION_JSON_VALUE)
                 .get("/random")
                 .route().routeId("route.servlet.randomPerson")
+                .tracing() // logs message as it is in each node
                 // .bean(GenerateData.class) // This should work too.  Looks like you can act on it like a regular route too.
-                .to("bean:generateData?method=getRandomPerson");
+                .to("bean:generateData?method=getRandomPerson")
+                // using log component to see how it prints. prints MEP, bodytype and body by default at info level
+                .to("log:generated.person")
+                .to("log:generated.person.showAll?showAll=true") // show full exchange info
+                .log("log method: ${body}");
+
 
         // this will trigger onException mapping to status codes above i.e. http status 500 is mapped to the exception
         rest("/exception")
