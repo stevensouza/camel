@@ -100,7 +100,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * hawtio/jolokia
     
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
-  * uses camel, jms/activemq, mongo, docker
+  * uses camel, jms/activemq, mongodb, docker
 
 ## [xmlxsd](https://github.com/stevensouza/camel/tree/master/xmlxsd) 
   * xml validation with xsd
