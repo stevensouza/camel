@@ -85,6 +85,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Spring boot camel app that uses rest endpoints.
   * MyCamelRoutes Uses
     * rest() DSL
+    * servlet component: from("servlet://hello")
     * xml/json generation 
     * routeId's
     * startupOrder
