@@ -93,7 +93,12 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * log component and log EIP
     * Calling a bean from a route
     * onExeption for exception handling and throwing an exception from a route
-    * Disable intellij formatting for routes
+    * Disable intellij formatting for routes (in routeBuilder.configure())
+      *  // @formatter:off
+      *   public void configure() {
+      *    ...
+      *   }
+      *  // @formatter:on
     * Various properties set in application.properties
     * Setting a camel header (setHeader) and setting the body (setBody)
     * lombok
