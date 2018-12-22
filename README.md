@@ -100,10 +100,11 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * hawtio/jolokia
   * MyParallelCamelRoutes in addition to some of the above uses
     * rest() DSL 
-    * seda component
-    * multiple destinations (to(uri1, uri2,...)).  Note you can also use multiple consumers in a from  (i.e. from(uri1, uri2,...)
+    * seda component: to("seda:single_queue",...), from("seda:merge_queue")
+    * multiple destinations (to("seda:single_queue", "seda:parallel_queue")).  Note you can also use multiple consumers in a from  (i.e. from(uri1, uri2,...)
     * EIPs: transform, multicast, log
     * parallelProcessing which is possible on some EIPs (split, multicast for example) as well as the 'seda' consumer as an option.
+      * from("seda:parallel_queue?concurrentConsumers=20")
     
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb, docker
