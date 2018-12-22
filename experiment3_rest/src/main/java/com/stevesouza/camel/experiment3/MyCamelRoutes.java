@@ -66,7 +66,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
         // using servlet component and not rest dsl. note could also use jetty as above
         // will use localhost:8080/rest/hello - using default tomcat server
-        // default would be localhost:8080/camel/hello
+        // default would be localhost:8080/rest/hello
          from("servlet://hello")
                 .routeId("route.servlet.helloWorld")
                 // will be started and stopped first. developers have from #'s 1 to 999.  with later versions camel is smarter and so you
@@ -75,6 +75,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .transform().simple("hello world");
 
          // note you need to call 'route()' to access the underlying route to call transform and many of the other eip's.
+         // localhost:8080/rest/hi
          rest()
                 .get("/hi")
                  // swagger documentation - note you can also document parameters and more though it is a bit wordy
@@ -86,6 +87,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .transform(constant("hi world"));
 
         // returns random person object as either json or xml, but defaults to json
+        // localhost:8080/rest/random
         rest()
                 .produces(MediaType.APPLICATION_JSON_VALUE)
                 .get("/random")
@@ -100,6 +102,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
 
         // this will trigger onException mapping to status codes above i.e. http status 500 is mapped to the exception
+        // localhost:8080/rest/exception
         rest("/exception")
                 .produces(MediaType.TEXT_PLAIN_VALUE)
                 .get()
