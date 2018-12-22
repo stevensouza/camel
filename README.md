@@ -83,7 +83,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     
 ## [experiment3_rest](https://github.com/stevensouza/experiment3_rest)
   * Spring boot camel app that uses rest endpoints.
-  * Uses
+  * MyCamelRoute Uses
     * rest() DSL
     * xml/json generation 
     * routeId's
@@ -98,6 +98,12 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * Setting a camel header (setHeader) and setting the body (setBody)
     * lombok
     * hawtio/jolokia
+  * MyParallelCamelRoutes in addition to some of the above uses
+    * rest() DSL 
+    * seda component
+    * multiple destinations (to(uri1, uri2,...)).  Note you can also use multiple consumers in a from  (i.e. from(uri1, uri2,...)
+    * EIPs: transform, multicast, log
+    * parallelProcessing which is possible on some EIPs (split, multicast for example) as well as the 'seda' consumer as an option.
     
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb, docker
