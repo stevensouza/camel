@@ -83,7 +83,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     
 ## [experiment3_rest](https://github.com/stevensouza/experiment3_rest)
   * Spring boot camel app that uses rest endpoints.
-  * MyCamelRoute Uses
+  * MyCamelRoutes Uses
     * rest() DSL
     * xml/json generation 
     * routeId's
