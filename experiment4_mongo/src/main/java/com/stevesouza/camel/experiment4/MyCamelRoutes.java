@@ -30,19 +30,17 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         from("timer:foo?period={{timer.publisher}}")
                 .routeId("route.generateData")
                 .setBody(() -> GenerateData.createPerson())
-                .marshal().json(JsonLibrary.Jackson)
-                .log("publishing ${body}")
-                .convertBodyTo(String.class)
-                .setHeader("JMSCorrelationID", () -> UUID.randomUUID().toString())
-                .to("jms:{{amq.publish}}");
+//                .marshal().json(JsonLibrary.Jackson)
+                .to("direct:write_to_mongodb");
 
+        // note mongoClientConnectionBean is a bean defined in CamelXmlApplication that has connection info for the mongodb server
+        // note mongo converts the pojo directly to bson and saves fine. This is probably due to including one of the json libraries in the
+        // pom.
+        from("direct:write_to_mongodb")
+                .routeId("route.toMongoDb")
+                .log("writing to mongodb ${body}")
+                .to("mongodb:mongoClientConnectionBean?database=testdb&collection=people&operation=insert");  // save=upsert, could also use insert
 
-                from("jms:queue:{{amq.subscribe}}")
-                .routeId("jms listener")
-                .log("incoming headers=${headers}")
-                .bean("JsonCorrelationIdAdder")
-                .log("writing to mongodb: ${body}")
-                .to("mongodb:myDb?database=pojodb&collection=mypojo&operation=insert");
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
 
