@@ -21,7 +21,7 @@ public class GenerateData {
 
     public static Person createPerson() {
         Person person = EnhancedRandom.random(Person.class);
-        log.info("Generating random data: "+person);
+        log.info("Generating random data: " + person);
         return person;
     }
 }
