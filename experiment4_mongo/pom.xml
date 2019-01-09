@@ -79,8 +79,8 @@
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-mongodb-starter</artifactId>
-			<version>2.22.1</version>
+			<artifactId>camel-mongodb3-starter</artifactId>
+            <version>${camel.version}</version>
 			<!-- use the same version as your Camel core version -->
 		</dependency>
 
@@ -124,11 +124,11 @@
 		</dependency>
 
 		<!--enables xml-->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jaxb-starter</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.camel</groupId>-->
+			<!--<artifactId>camel-jaxb-starter</artifactId>-->
+			<!--<version>${camel.version}</version>-->
+		<!--</dependency>-->
 
         <!--<dependency>-->
             <!--<groupId>org.apache.camel</groupId>-->
@@ -170,21 +170,21 @@
 		</dependency>
 
 		<!-- xml processing -->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-xstream</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jacksonxml</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-xmljson</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.camel</groupId>-->
+			<!--<artifactId>camel-xstream</artifactId>-->
+			<!--<version>${camel.version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.camel</groupId>-->
+			<!--<artifactId>camel-jacksonxml</artifactId>-->
+			<!--<version>${camel.version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.camel</groupId>-->
+			<!--<artifactId>camel-xmljson</artifactId>-->
+			<!--<version>${camel.version}</version>-->
+		<!--</dependency>-->
 
 		<!-- xml validation -->
 		<!--<dependency>-->
@@ -233,6 +233,11 @@
 			<version>2.3.2</version>
 		</dependency>
 
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.3</version>
+        </dependency>
 
 		<!--<dependency>-->
 			<!--<groupId>org.apache.activemq</groupId>-->
