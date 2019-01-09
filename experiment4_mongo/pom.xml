@@ -94,6 +94,14 @@
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 
+        <!-- apache drill allows you to issue sql against mongodb (as well as others like kafka and s3) -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.camel</groupId>-->
+            <!--<artifactId>camel-drill-starter</artifactId>-->
+            <!--<version>${camel.version}</version>-->
+        <!--</dependency>-->
+
+
 
 		<!-- START camel libraries-->
 		<!--always use -starter with spring boot camel p 259 2nd edition-->
