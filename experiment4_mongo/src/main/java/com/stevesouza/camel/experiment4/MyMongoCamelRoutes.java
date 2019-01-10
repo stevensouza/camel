@@ -7,7 +7,7 @@ import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyCamelRoutes extends SpringRouteBuilder {
+public class MyMongoCamelRoutes extends SpringRouteBuilder {
 
     /**
      * to view hawt io (camel routes, jmx) - http://localhost:8080/actuator/hawtio/
@@ -40,7 +40,6 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .log("writing to mongodb ${body}")
                 .to("mongodb3:mongoClientConnectionBean?database=testdb&collection=people&operation=save");  // save=upsert, could also use insert
 
-
         // count # of people in collection
         from("timer:foo?period={{timer.count}}")
                 .routeId("route.count")
@@ -60,14 +59,6 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .setHeader(MongoDbConstants.CRITERIA, () -> Filters.lte("age", 2))
                 .to("mongodb3:mongoClientConnectionBean?database=testdb&collection=people&operation=findAll")
                 .log("Find all Person objects with age<=2 in mongodb=${body}");
-
-
-//        from("timer:foo?period={{timer.count}}")
-//                .routeId("route.drillCount")
-//                .setHeader("CamelDrillQuery", constant("select count(*) from mongo.testdb.people;"))
-//                .to("drill:localhost")
-//                .log("drill count=${body}");
-
 
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
