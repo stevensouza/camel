@@ -18,9 +18,10 @@ your routes and seeing how much data is passing through and whether or not error
 * **kafka** - running kafka.  Put local host ip in [kafka_experiment1.yml](https://github.com/stevensouza/camel/blob/master/docker/kafka_experiment1.yml) and run the following command (it will start up kafka and zookeeper. kafka will be on localhost:9092 as you can see in application.properties)
   * docker-compose -f kafka_experiment1.ymll up -d
 * **mongodb** -  Run the following or start up mongodb in some other way on localhost and port 27017
-  * docker run --name mongo-camel -p 27017:27017  -d mongo
+  * docker run --name mongo-xenial -d mongo:4.0-xenial
+  * Note i didn't need to expose the port though if for some reason the above doesn't work try: docker run --name mongo-xenial -p 27017:27017 -d mongo:4.0-xenial
   * To see data in mongodb
-    * docker run -it --link=mongo-camel  mongo /bin/bash
+    * docker run -it --link=mongo-xenial  mongo:4.0-xenial /bin/bash
     * From Shell
       * To run program that allows for executing mongodb commands execute:
         * mongo mongodb:27017
@@ -29,7 +30,20 @@ your routes and seeing how much data is passing through and whether or not error
         * use pojodb
         * db.mypojo.count();
         * db.mypojo.find();
-  * [Usage in application.properties](https://github.com/stevensouza/cameldemo/blob/master/src/main/resources/application.properties)    
+  * [Usage in application.properties](https://github.com/stevensouza/cameldemo/blob/master/src/main/resources/application.properties)  
+ * **apache drill** -  Apache drill allows you to write SQL select statements against data that doesn't natively support it such as mongodb (I use this in experiment4 below), kafka, s3, and file systems.
+   * docker run -i --name drill -p 8047:8047 -p 31010:31010 -t drill/apache-drill:1.15.0 /bin/bash  
+   * To enable writing mongodb queries do the following:
+     * run mongodb (using docker above)
+     * http://localhost:8047/storage
+     * 'enable' mongodb
+     *  Get the mongodb docker ip address: docker inspect MONGO_CONTAINER_ID
+     * 'update' the apache drill mongodb file via the url above, replacing localhost with the mongodb ipaddress, Example
+        * {
+          * "type": "mongo",
+          * "connection": "mongodb://172.17.0.2:27017/",
+          * "enabled": true
+        * }
 
 ## [experiment1_kafka_amq](https://github.com/stevensouza/camel/tree/master/experiment1_kafka_amq) (click to go to the projects source code)
 
