@@ -84,7 +84,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * http://127.0.0.1:8080/experiment1/start
     * http://127.0.0.1:8080/experiment1/stop
     
-## [experiment2_testing](https://github.com/stevensouza/experiment2_testing)
+## [experiment2_testing](https://github.com/stevensouza/camel/tree/master/experiment2_testing)
   * Spring boot camel app that replaces camel endpoints (from/to) with 'direct' and 'mock' to test the routes.
   * Uses
     * Camel testing techniques
@@ -95,7 +95,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * activemq/jms endpoints
     * hawtio/jolokia
     
-## [experiment3_rest](https://github.com/stevensouza/experiment3_rest)
+## [experiment3_rest](https://github.com/stevensouza/camel/tree/master/experiment3_rest)
   * Spring boot camel app that uses rest endpoints.
   * MyCamelRoutes Uses
     * rest() DSL
@@ -126,7 +126,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * parallelProcessing which is possible on some EIPs (split, multicast for example) as well as the 'seda' consumer as an option.
       * from("seda:parallel_queue?concurrentConsumers=20")
 
-## [experiment4_mongo](https://github.com/stevensouza/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
+## [experiment4_mongo](https://github.com/stevensouza/camel/tree/master/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
   * Spring boot
   * Docker
   * MongoDb3 component - save/insert pojo, count and retrieve objects in collection
