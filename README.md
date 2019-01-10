@@ -38,6 +38,7 @@ your routes and seeing how much data is passing through and whether or not error
      * http://localhost:8047/storage
      * 'enable' mongodb
      *  Get the mongodb docker ip address: docker inspect MONGO_CONTAINER_ID
+       * docker inspect mongo-xenial 
      * 'update' the apache drill mongodb file via the url above, replacing localhost with the mongodb ipaddress, Example
         * {
           * "type": "mongo",
