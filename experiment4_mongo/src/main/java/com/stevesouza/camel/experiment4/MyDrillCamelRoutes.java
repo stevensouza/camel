@@ -13,6 +13,7 @@ public class MyDrillCamelRoutes extends SpringRouteBuilder {
      * activemq - http://localhost:8161/
      * <p>
      * mongodb3 component - https://github.com/apache/camel/blob/master/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc
+     * drill component - https://github.com/apache/camel/blob/master/components/camel-drill/src/main/docs/drill-component.adoc
      */
 
 

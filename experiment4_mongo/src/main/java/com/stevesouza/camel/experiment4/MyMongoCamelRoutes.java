@@ -14,6 +14,7 @@ public class MyMongoCamelRoutes extends SpringRouteBuilder {
      * activemq - http://localhost:8161/
      * <p>
      * mongodb3 component - https://github.com/apache/camel/blob/master/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc
+     * drill component - https://github.com/apache/camel/blob/master/components/camel-drill/src/main/docs/drill-component.adoc
      */
 
 
@@ -23,6 +24,7 @@ public class MyMongoCamelRoutes extends SpringRouteBuilder {
     public void configure() {
         // enable dropwizard metrics - not required
         // see hawt io 'Route Metrics' for jamon like data it collects.
+        //
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
         from("timer:foo?period={{timer.publisher}}")
@@ -36,7 +38,7 @@ public class MyMongoCamelRoutes extends SpringRouteBuilder {
         // pom.
         // https://github.com/apache/camel/blob/master/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc
         from("direct:write_to_mongodb")
-                .routeId("route.toMongoDb")
+                .routeId("route.writeToMongoDb")
                 .log("writing to mongodb ${body}")
                 .to("mongodb3:mongoClientConnectionBean?database=testdb&collection=people&operation=save");  // save=upsert, could also use insert
 
