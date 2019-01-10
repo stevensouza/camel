@@ -14,6 +14,7 @@ public class MyDrillCamelRoutes extends SpringRouteBuilder {
      * <p>
      * mongodb3 component - https://github.com/apache/camel/blob/master/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc
      * drill component - https://github.com/apache/camel/blob/master/components/camel-drill/src/main/docs/drill-component.adoc
+     * used this drill code to get drill working: https://github.com/apache/camel/blob/master/components/camel-drill/src/test/java/org/apache/camel/component/drill/ProducerTest.java
      */
 
 
