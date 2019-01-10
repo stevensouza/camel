@@ -127,7 +127,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
       * from("seda:parallel_queue?concurrentConsumers=20")
 
 ## [experiment4_mongo](https://github.com/stevensouza/camel/tree/master/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
-  * Spring boot
+  * Spring boot camel app that writes pojos to mongodb, and reads the data with both camel native queries and apache drill SQL.
   * Docker
   * MongoDb3 component - save/insert pojo, count and retrieve objects in collection
   * Apache Drill component - allows you to write ANSI SQL selects to access mongo collection data.  Although I didn't write them you can also write aggregate queries using 'group by'. 
@@ -135,9 +135,10 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Timer component
   * Log eip
   * Properties loaded from application.properties
+  * Random beans, and random beans validation (javax.validation)
   
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
-  * uses camel, jms/activemq, mongodb, docker
+  * uses camel, jms/activemq, mongodb (older version of docker component i.e. mongodb and not mongodb3), docker
 
 ## [xmlxsd](https://github.com/stevensouza/camel/tree/master/xmlxsd) 
   * xml validation with xsd
