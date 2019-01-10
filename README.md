@@ -139,6 +139,9 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Log eip
   * Properties loaded from application.properties
   * Random beans, and random beans validation (javax.validation)
+    * There was a conflict between the versions of javax.validation in Random beans and drill.  Random beans used a more recent version, so I used a technique to exclude the version used by drill and explicitly include the dependency of the latter version (instead of depending on transitive dependencies).  See pom.xml 
+  * lombok
+
   
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb (older version of docker component i.e. mongodb and not mongodb3), docker
