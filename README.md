@@ -125,7 +125,17 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * EIPs: transform, multicast, log
     * parallelProcessing which is possible on some EIPs (split, multicast for example) as well as the 'seda' consumer as an option.
       * from("seda:parallel_queue?concurrentConsumers=20")
-    
+
+## [experiment4_mongo](https://github.com/stevensouza/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
+  * Spring boot
+  * Docker
+  * MongoDb3 component - save/insert pojo, count and retrieve objects in collection
+  * Apache Drill component - allows you to write ANSI SQL selects to access mongo collection data.  Although I didn't write them you can also write aggregate queries using 'group by'. 
+  * hawtio
+  * Timer component
+  * Log eip
+  * Properties loaded from application.properties
+  
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb, docker
 
