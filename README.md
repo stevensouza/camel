@@ -130,7 +130,9 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Spring boot camel app that writes pojos to mongodb, and reads the data with both camel native queries and apache drill SQL.
   * Docker
   * MongoDb3 component - save/insert pojo, count and retrieve objects in collection
+    * See MyMongoCamelRoutes for usage
   * Apache Drill component - allows you to write ANSI SQL selects to access mongo collection data.  Although I didn't write them you can also write aggregate queries using 'group by'. 
+    * See MyDrillCamelRoutes for usage  
   * hawtio
   * Timer component
   * Log eip
