@@ -30,7 +30,7 @@ public class MyDrillCamelRoutes extends SpringRouteBuilder {
         from("timer:foo?period={{timer.count}}")
                 .routeId("route.drillCount")
                 .setHeader(DrillConstants.DRILL_QUERY, constant(drillCountQuery))
-                .to(String.format("drill://localhost?mode=%s&port=%s", DrillConnectionMode.DRILLBIT.name(),  "31010")) // default drill port
+                .toD(String.format("drill://{{drill.host}}?mode=%s&port=%s", DrillConnectionMode.DRILLBIT.name(),  "31010")) // default drill port
                 .log(String.format("Apache drill count: %s = ${body}", drillCountQuery));
 
         // findAll people with age<=2
@@ -38,7 +38,7 @@ public class MyDrillCamelRoutes extends SpringRouteBuilder {
         from("timer:foo?period={{timer.count}}")
                 .routeId("route.drillFindAllLte2")
                 .setHeader(DrillConstants.DRILL_QUERY, constant(drillAgeLte2Query))
-                .to(String.format("drill://localhost?mode=%s&port=%s", DrillConnectionMode.DRILLBIT.name(),  "31010")) // default drill port
+                .toD(String.format("drill://{{drill.host}}?mode=%s&port=%s", DrillConnectionMode.DRILLBIT.name(),  "31010")) // default drill port
                 .log(String.format("Apache drill find all Person objects with age<=2 in mongodb: %s = ${body}", drillAgeLte2Query));
 
     }
