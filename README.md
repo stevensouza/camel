@@ -141,6 +141,20 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Random beans, and random beans validation (javax.validation)
     * There was a conflict between the versions of javax.validation in Random beans and drill.  Random beans used a more recent version, so I used a technique to exclude the version used by drill and explicitly include the dependency of the latter version (instead of depending on transitive dependencies).  See pom.xml 
   * lombok
+  * Notes
+    * When running from the localhost or IDE then application.properties host names for drill and mongo should be set to localhost
+    * Building and running the app as a docker image using the fabric8 maven plugin (https://dmp.fabric8.io/)
+      * When running the app from docker using fabric8 maven plugin put the drill and mongo ip address in application.properties.  This can be retrieved by 'docker inspect CONTAINER_ID' for each of them.
+      * To build and deploy docker image for the 8 using maven fabric8 plugin: mvn install docker:build
+      * To run the program (ensure mongo and drill are both running first): docker run --name camel_experiment4 stevesouza/camel_experiment4_mongo 
+      * To stop the program: docker stop camel_experiment4
+      * Alternatively you can start/stop/tail logs of the application like this:
+        *  mvn install docker:start
+          * of if it is already installed: mvn docker:start
+        * docker logs --follow camel_experiment4_mongo-1
+          * or if you just want to display the log: docker logs camel_experiment4_mongo-1
+        * mvn docker:stop
+
 
   
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
