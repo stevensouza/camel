@@ -141,6 +141,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * Random beans, and random beans validation (javax.validation)
     * There was a conflict between the versions of javax.validation in Random beans and drill.  Random beans used a more recent version, so I used a technique to exclude the version used by drill and explicitly include the dependency of the latter version (instead of depending on transitive dependencies).  See pom.xml 
   * lombok
+  * fabric8 docker maven plugin (https://dmp.fabric8.io/) (easily add your applicaiton to a docker image and run it - see below)
   * Notes
     * When running from the localhost or IDE then application.properties host names for drill and mongo should be set to localhost
     * Building and running the app as a docker image using the fabric8 maven plugin (https://dmp.fabric8.io/)
