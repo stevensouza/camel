@@ -313,6 +313,11 @@
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>     
 								</assembly>
+								<!--override application.properties when running app from a container-->
+								<env>
+									<drill.host>172.17.0.2</drill.host>
+									<spring.data.mongodb.host>172.17.0.3</spring.data.mongodb.host>
+								</env>
 								<cmd>
 									java -jar maven/${project.artifactId}-${project.version}.jar     
 								</cmd>
