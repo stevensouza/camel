@@ -98,7 +98,8 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // using log component to see how it prints. prints MEP, bodytype and body by default at info level
                 .to("log:generated.person")
                 .to("log:generated.person.showAll?showAll=true") // show full exchange info
-                .log("log method: ${body}");
+                .log("log method: ${body}")
+                .log("Showing how properties can be referenced (either OS, or application.properties. USER=${properties:USER}");
 
 
         // this will trigger onException mapping to status codes above i.e. http status 500 is mapped to the exception
