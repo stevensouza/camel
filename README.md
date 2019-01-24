@@ -97,7 +97,15 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * hawtio/jolokia
     
 ## [experiment3_rest](https://github.com/stevensouza/camel/tree/master/experiment3_rest)
-  * Spring boot camel app that uses rest endpoints.
+  * Spring boot camel app that uses rest endpoints. Some endpoints follow:
+    * http://localhost:8080/rest/hi
+    * http://localhost:8080/rest/hello
+    * http://localhost:8080/rest/random - returns randomly populated person data
+    * http://localhost:8080/rest/exception - shows exception and demonstrates camel exception handling
+    * http://localhost:8080/rest/parallel/{myname} - takes an input and returns it with a message.  
+    * http://localhost:8080/rest/swagger
+    * http://localhost:8080/actuator - spring boot provided links that fall under /actuator like health, metrics, beans, env, info, heapdump, threaddump, httptrace (most recent http requests)
+    * http://localhost:8080/actuator/hawtio/ - lots of great management info, diagrams, metrics for camel routes and more.
   * MyCamelRoutes Uses
     * rest() DSL
     * servlet component: from("servlet://hello")
