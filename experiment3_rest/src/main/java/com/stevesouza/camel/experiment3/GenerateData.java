@@ -16,6 +16,7 @@ public class GenerateData {
     // I am putting Exchange in their just to demonstrate, though in this case it isn't needed.
     @Handler
     public Person getRandomPerson(Exchange exchange) {
+        log.info("*****XXXXX blah blah blah");
         log.info("Generating random data for this exchange: " + exchange);
         return EnhancedRandom.random(Person.class);
     }
