@@ -113,7 +113,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * routeId's
     * startupOrder
     * transform EIP
-    * Accessing ${properties:PROP_NAME} from a camel route: 
+    * Accessing ${properties:PROP_NAME} from a camel route: https://github.com/stevensouza/camel/blob/4a487711589b7611646b37e536d613ebe221d400/experiment3_rest/src/main/java/com/stevesouza/camel/experiment3/MyCamelRoutes.java#L102
     * swagger api and swagger annotations and route metadata
     * log component and log EIP
     * Calling a bean from a route
