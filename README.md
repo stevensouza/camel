@@ -67,7 +67,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
   * EIPs used
     * choice - (if-then-else) to use a property to decide if data should be sent to kafka or amq
     * transform
-  * Simple Expression Language (sel) including ${properties}
+  * Simple Expression Language (sel) including ${properties} - ${properties:HISTFILESIZE} - https://github.com/stevensouza/camel/blob/a6edd639b20dce559dbc9698dc1918477ecdd155/experiment1_kafka_amq/src/main/java/com/stevesouza/camel/experiment1/MyCamelRoutes.java#L79
   * Routes from/to loaded from properties file
   * Using hawtio - great for viewing jmx and graphically viewing camel routes
     * http://localhost:8080/actuator/hawtio/
@@ -113,6 +113,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * routeId's
     * startupOrder
     * transform EIP
+    * Accessing ${properties:PROP_NAME} from a camel route: 
     * swagger api and swagger annotations and route metadata
     * log component and log EIP
     * Calling a bean from a route
