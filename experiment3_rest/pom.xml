@@ -75,9 +75,9 @@
         <!--kubernetes/openshift ConfigMap support for spring boot properties-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <artifactId>spring-cloud-starter-kubernetes</artifactId>
+            <version>0.3.0.RELEASE</version>
         </dependency>
-
 		<!-- END STANDARD SPRING BOOT LIBRARIES-->
 
 
