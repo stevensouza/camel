@@ -99,7 +99,8 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .to("log:generated.person")
                 .to("log:generated.person.showAll?showAll=true") // show full exchange info
                 .log("log method: ${body}")
-                .log("Showing how properties can be referenced (either OS, or application.properties. USER=${properties:USER}");
+                // note the property must exist or an exception is thrown.
+                .log("Showing how properties can be referenced (either OS, or application.properties. HOME=${properties:HOME}");
 
 
         // this will trigger onException mapping to status codes above i.e. http status 500 is mapped to the exception
