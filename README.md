@@ -135,6 +135,10 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * EIPs: transform, multicast, log
     * parallelProcessing which is possible on some EIPs (split, multicast for example) as well as the 'seda' consumer as an option.
       * from("seda:parallel_queue?concurrentConsumers=20")
+ * Note this project is configurred to deploy to openshift on a commit to the repo.
+   * This application references MY_FIRST_NAME, and MY_LAST_NAME at http://localhost:8080/rest/hello.  They are defined in application.properties. However either may also be overridden in an openshift ConfigMap and associating the ConfigMap with this application in openshift.
+   * Note spring-cloud-starter-kubernetes was added to the pom in order to have spring boot recognize ConfigMaps.
+
 
 ## [experiment4_mongo](https://github.com/stevensouza/camel/tree/master/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
   * Spring boot camel app that writes pojos to mongodb, and reads the data with both camel native queries and apache drill SQL.
@@ -166,7 +170,6 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
         * mvn docker:stop
 
 
-  
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb (older version of docker component i.e. mongodb and not mongodb3), docker
 
