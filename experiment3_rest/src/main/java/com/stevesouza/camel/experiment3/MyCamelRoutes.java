@@ -72,7 +72,7 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 // will be started and stopped first. developers have from #'s 1 to 999.  with later versions camel is smarter and so you
                 // need to do this less often
                 .startupOrder(1)
-                .transform().simple("hello world to {{MY_FIRST_NAME}} {{MY_LAST_NAME}} {{MONGODB_DBNAME}} {{MONGODB_PASSWORD}} {{MONGODB_USER}}");
+                .transform().simple("hello world to {{MY_FIRST_NAME}} {{MY_LAST_NAME}}");
 
          // note you need to call 'route()' to access the underlying route to call transform and many of the other eip's.
          // localhost:8080/rest/hi
