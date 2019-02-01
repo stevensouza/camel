@@ -1,6 +1,7 @@
 package com.stevesouza.camel.experiment4;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,11 +10,9 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class CamelXmlApplication {
-    @Value("${spring.data.mongodb.host}")
-    private String mongoServerUrl;
 
-    @Value("${spring.data.mongodb.port}")
-    private int mongoServerPort;
+    @Value("${spring.data.mongodb.uri}")
+    private String mongodbUri;
 
     /**
      * to view visual representations of camel routes and to control jmx via http
@@ -31,7 +30,7 @@ public class CamelXmlApplication {
 
     @Bean("mongoClientConnectionBean")
     public MongoClient mongo() {
-        return new MongoClient(mongoServerUrl, mongoServerPort);
+        return new MongoClient(new MongoClientURI(mongodbUri));
     }
 
 
