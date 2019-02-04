@@ -169,6 +169,14 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
           * or if you just want to display the log: docker logs camel_experiment4_mongo-1
         * mvn docker:stop
 
+## [camel_experiment5_mongo_openshift](https://github.com/stevensouza/camel/tree/master/camel_experiment5_mongo_openshift). This is the same codebase as experiment4 above except it was changed to work within openshift/kubernetes in the following ways.
+* See experiment4 notes for more about what the app does and how it works as experiment5 was mostly a copy of its code.
+* application.properties was changed to work with openshift ConfigMaps and Secrets (env variables).  For example the following property was added.  The variables can be defined in either application.properties or in the case of openshift - ConfigMaps and Secrets can be defined to override the values in application.properties:
+MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
+* Mongodb is started up in openshift. Note it's 'service' name and so its DNS is: mongodb
+* A webhook was added to the github repo so that every time the code is commited openshift does a rebuild/redeploy
+* Apache Drill was used in experiment4, but removed from the experiment5 code to simplify the app.  As the intention is to get the code to work in openshift and so a simpler example works better.
+* Note there is a fabric8 maven plugin that deploys directly to openshift/kubernetes.  I didn't use this and did a standard docker plugin. 
 
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb (older version of docker component i.e. mongodb and not mongodb3), docker
