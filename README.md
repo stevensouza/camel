@@ -138,6 +138,11 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
  * Note this project is configurred to deploy to openshift on a commit to the repo.
    * This application references MY_FIRST_NAME, and MY_LAST_NAME at http://localhost:8080/rest/hello.  They are defined in application.properties. However either may also be overridden in an openshift ConfigMap and associating the ConfigMap with this application in openshift.
    * Note spring-cloud-starter-kubernetes was added to the pom in order to have spring boot recognize ConfigMaps.
+   * spring-cloud-starter-sleuth is in pom.xml. Without any coding this will add applicaiton name,correlationId/traceId, and spanId to each log statement (see below for an example)
+     * correlationId/traceId - is a unique id per request (same id even if multiple rest calls). It is used to track a request.
+     * spanId - represents each service so even the spanId can change for each request (unlike the correlationId) as different microservices are called.
+     * Example log statement: 2019-02-09 15:48:29.996  INFO [experiment3_rest,55d59f30f767ba4d,55d59f30f767ba4d,false] 13547 --- [nio-8080-exec-4] route.servlet.randomPerson               :  my log statement
+
 
 
 ## [experiment4_mongo](https://github.com/stevensouza/camel/tree/master/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
