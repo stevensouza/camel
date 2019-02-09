@@ -26,6 +26,7 @@
         <java.version>1.8</java.version>
         <!--<camel.version>2.22.1</camel.version>-->
         <camel.version>2.23.0</camel.version>
+        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -57,6 +58,11 @@
             <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
 
+        <!-- correlationId/traceId in logs -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
 
         <!-- spring metrics and health endpoints-->
 
@@ -255,6 +261,19 @@
         </dependency>
 
     </dependencies>
+
+    <!--used for spring cloud and in particular for this project to include spring cloud sleuth -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
