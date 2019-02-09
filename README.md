@@ -182,6 +182,7 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
 * A webhook was added to the github repo so that every time the code is commited openshift does a rebuild/redeploy
 * Apache Drill was used in experiment4, but removed from the experiment5 code to simplify the app.  As the intention is to get the code to work in openshift and so a simpler example works better.
 * Note there is a fabric8 maven plugin that deploys directly to openshift/kubernetes.  I didn't use this and did a standard docker plugin. 
+* Has correlationId added automatically to logging via spring-cloud-starter-sleuth in pom.xml.  Note becauset this app doesn't have rest calls this capability isn't demonstrated.  Just wanted this standard microservices capability in one of my latest pom.xml files.
 
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb (older version of docker component i.e. mongodb and not mongodb3), docker
