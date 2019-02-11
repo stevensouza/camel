@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
     <appender name='SYSLOG-TLS' class='com.papertrailapp.logback.Syslog4jAppender'>
         <layout class='ch.qos.logback.classic.PatternLayout'>
-            <pattern>%-5level %logger{35}: %m%n%xEx</pattern>
+            <!--spanid, traceid are defined in spring cloud sleuth MDC -->
+            <pattern>%-5level [%thread] [${springAppName},%X{traceId},%X{spanId}] %logger{35}: %m%n%xEx</pattern>
         </layout>
         <syslogConfig class='org.productivity.java.syslog4j.impl.net.tcp.ssl.SSLTCPNetSyslogConfig'>
             <!-- remote system to log to -->
@@ -19,7 +22,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [${springAppName},%X{traceId},%X{spanId}] %logger{35} - %msg%n
             </Pattern>
         </layout>
     </appender>
