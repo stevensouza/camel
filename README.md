@@ -45,6 +45,12 @@ your routes and seeing how much data is passing through and whether or not error
           * "connection": "mongodb://172.17.0.2:27017/",
           * "enabled": true
         * }
+ * **aggregated logging** - Send logging from various machines to a central logging location such as papertrail or splunk. In some of these examples I send logs to the papertrail logging cloud. Simply sign up and get a destination URI for your acccount.  Papertrail allows you to query your centrally located logs in a manner similar to Splunk.
+   * You can start up one docker host that runs logspout.  It will take all docker.sock output on your machine and send all the data to your papertrail account. 
+     * Here is the command: **docker run --restart=always -d    -v=/var/run/docker.sock:/var/run/docker.sock gliderlabs/logspout   syslog+tls://logs7.papertrailapp.com:20749
+**  
+     * And here is a command to start your spring boot app assuming you have used the mvn docker plugin per the below information.  Note --hostname is used as the name in papertrail to identify the log. If this isn't used the more docker cryptic name/number is used which makes identifying the log difficult.
+       * **docker run --rm  --name camel_experiment4 --hostname camel_experiment4 stevesouza/camel_experiment4_mongo**
 
 ## [experiment1_kafka_amq](https://github.com/stevensouza/camel/tree/master/experiment1_kafka_amq) (click to go to the projects source code)
 
