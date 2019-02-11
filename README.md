@@ -13,18 +13,18 @@ your routes and seeing how much data is passing through and whether or not error
 ## Docker info for running programs used in various experiments
 
 * **activemq** - use the following command to run amq docker. activemq is used in experiment1
-  * docker run -p 61616:61616 -p 8161:8161 rmohr/activemq
+  * **docker run -p 61616:61616 -p 8161:8161 rmohr/activemq**
   * manage docker via web console - http://localhost:8161/
 * **kafka** - running kafka.  Put local host ip in [kafka_experiment1.yml](https://github.com/stevensouza/camel/blob/master/docker/kafka_experiment1.yml) and run the following command (it will start up kafka and zookeeper. kafka will be on localhost:9092 as you can see in application.properties)
   * docker-compose -f kafka_experiment1.ymll up -d
 * **mongodb** -  Run the following or start up mongodb in some other way on localhost and port 27017
-  * docker run --name mongo-xenial -d mongo:4.0-xenial
-  * Note i didn't need to expose the port though if for some reason the above doesn't work try: docker run --name mongo-xenial -p 27017:27017 -d mongo:4.0-xenial
+  * **docker run --name mongo-xenial -d mongo:4.0-xenial**
+  * Note i didn't need to expose the port though if for some reason the above doesn't work try: **docker run --name mongo-xenial -p 27017:27017 -d mongo:4.0-xenial**
   * To see data in mongodb
-    * docker run -it --link=mongo-xenial  mongo:4.0-xenial /bin/bash
+    * **docker run -it --link=mongo-xenial  mongo:4.0-xenial /bin/bash**
     * From Shell
       * To run program that allows for executing mongodb commands execute:
-        * mongo mongodb:27017
+        * **mongo mongodb:27017**
       * Some mongodb commands
         * show dbs
         * use pojodb
@@ -32,7 +32,7 @@ your routes and seeing how much data is passing through and whether or not error
         * db.mypojo.find();
   * [Usage in application.properties](https://github.com/stevensouza/cameldemo/blob/master/src/main/resources/application.properties)  
  * **apache drill** -  Apache drill allows you to write SQL select statements against data that doesn't natively support it such as mongodb (I use this in experiment4 below), kafka, s3, and file systems.
-   * docker run -i --name drill -p 8047:8047 -p 31010:31010 -t drill/apache-drill:1.15.0 /bin/bash  
+   * **docker run -i --name drill -p 8047:8047 -p 31010:31010 -t drill/apache-drill:1.15.0 /bin/bash  **
    * To enable writing mongodb queries do the following:
      * run mongodb (using docker above)
      * http://localhost:8047/storage
@@ -164,15 +164,15 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * When running from the localhost or IDE then application.properties host names for drill and mongo should be set to localhost
     * Building and running the app as a docker image using the fabric8 maven plugin (https://dmp.fabric8.io/)
       * When running the app from docker using fabric8 maven plugin put the drill and mongo ip address in application.properties.  This can be retrieved by 'docker inspect CONTAINER_ID' for each of them.
-      * To build and deploy docker image for the 8 using maven fabric8 plugin: mvn install docker:build
-      * To run the program (ensure mongo and drill are both running first): docker run --name camel_experiment4 stevesouza/camel_experiment4_mongo 
-      * To stop the program: docker stop camel_experiment4
+      * To build and deploy docker image for the 8 using maven fabric8 plugin: **mvn install docker:build**
+      * To run the program (ensure mongo and drill are both running first): **docker run --rm --name camel_experiment4 stevesouza/camel_experiment4_mongo** 
+      * To stop the program: **docker stop camel_experiment4**
       * Alternatively you can start/stop/tail logs of the application like this:
-        *  mvn install docker:start
+        *  **mvn install docker:start**
           * of if it is already installed: mvn docker:start
-        * docker logs --follow camel_experiment4_mongo-1
-          * or if you just want to display the log: docker logs camel_experiment4_mongo-1
-        * mvn docker:stop
+        * **docker logs --follow camel_experiment4_mongo-1**
+          * or if you just want to display the log: **docker logs camel_experiment4_mongo-1**
+        * **mvn docker:stop**
 
 ## [camel_experiment5_mongo_openshift](https://github.com/stevensouza/camel/tree/master/camel_experiment5_mongo_openshift). This is the same codebase as experiment4 above except it was changed to work within openshift/kubernetes in the following ways.
 * See experiment4 notes for more about what the app does and how it works as experiment5 was mostly a copy of its code.
