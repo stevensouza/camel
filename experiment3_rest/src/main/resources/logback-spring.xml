@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name='SYSLOG-TLS' class='com.papertrailapp.logback.Syslog4jAppender'>
+        <layout class='ch.qos.logback.classic.PatternLayout'>
+            <pattern>%-5level %logger{35}: %m%n%xEx</pattern>
+        </layout>
+        <syslogConfig class='org.productivity.java.syslog4j.impl.net.tcp.ssl.SSLTCPNetSyslogConfig'>
+            <!-- remote system to log to -->
+            <host>logs7.papertrailapp.com</host>
+            <!-- remote port to log to -->
+            <port>20749</port>
+            <!-- program name to log as -->
+            <ident>camel_experiment3_rest_logack</ident>
+            <!-- max log message length in bytes -->
+            <maxMessageLength>128000</maxMessageLength>
+        </syslogConfig>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="SYSLOG-TLS"/>
+    </root>
+
+</configuration>
