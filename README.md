@@ -147,6 +147,12 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
      * correlationId/traceId - is a unique id per request (same id even if multiple rest calls). It is used to track a request.
      * spanId - represents each service so even the spanId can change for each request (unlike the correlationId) as different microservices are called.
      * Example log statement: 2019-02-09 15:48:29.996  INFO [experiment3_rest,55d59f30f767ba4d,55d59f30f767ba4d,false] 13547 --- [nio-8080-exec-4] route.servlet.randomPerson               :  my log statement
+* Also uses fabric8 docker maven plugin (https://dmp.fabric8.io/) (easily add your applicaiton to a docker image and run it - see below).  See experiment4 notes below for more details. 
+  * **mvn install docker:build**
+  * **docker run --rm --name camel_experiment3_rest --hostname camel_experiment3_rest -p 8080:8080 stevesouza/camel_experiment3_rest**
+    * Note --rm removes the container when it is stopped.
+    * --hostname allows papertrail to identify the log with this name as opposed to the more crytpic containerid
+
 
 
 
