@@ -143,17 +143,18 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
  * Note this project is configurred to deploy to openshift on a commit to the repo.
    * This application references MY_FIRST_NAME, and MY_LAST_NAME at http://localhost:8080/rest/hello.  They are defined in application.properties. However either may also be overridden in an openshift ConfigMap and associating the ConfigMap with this application in openshift.
    * Note spring-cloud-starter-kubernetes was added to the pom in order to have spring boot recognize ConfigMaps.
+   * Centralized logging.  Note the best way to do centralized logging is to configure docker or openshift. My code uses an appender that writes to papertrail (papertrail is like splunk).  See logback-spring.xml for how the papertrail appender is configured.  Note logback configuration is only there to configure for papertrail use and if we don't have an appender it doesn't have to be there.  
+     * using docker for centralized logging. Note in this case the appender need not be used:
+        * docker run --restart=always -d    -v=/var/run/docker.sock:/var/run/docker.sock gliderlabs/logspout   syslog+tls://logs7.papertrailapp.com:20749
    * CorrelationId's are in the logs - This is accomnplished by adding spring-cloud-starter-sleuth to the pom.xml. Without any coding this will add applicaiton name,correlationId/traceId, and spanId to each log statement (see below for an example)
-     * correlationId/traceId - is a unique id per request (same id even if multiple rest calls). It is used to track a request.
-     * spanId - represents each service so even the spanId can change for each request (unlike the correlationId) as different microservices are called.
-     * Example log statement: 2019-02-09 15:48:29.996  INFO [experiment3_rest,55d59f30f767ba4d,55d59f30f767ba4d,false] 13547 --- [nio-8080-exec-4] route.servlet.randomPerson               :  my log statement
+       * correlationId/traceId - is a unique id per request (same id even if multiple rest calls). It is used to track a request.
+       * spanId - represents each service so even the spanId can change for each request (unlike the correlationId) as different microservices are called.
+       * Example log statement: 2019-02-09 15:48:29.996  INFO [experiment3_rest,55d59f30f767ba4d,55d59f30f767ba4d,false] 13547 --- [nio-8080-exec-4] route.servlet.randomPerson               :  my log statement
 * Also uses fabric8 docker maven plugin (https://dmp.fabric8.io/) (easily add your applicaiton to a docker image and run it - see below).  See experiment4 notes below for more details. 
   * **mvn install docker:build**
   * **docker run --rm --name camel_experiment3_rest --hostname camel_experiment3_rest -p 8080:8080 stevesouza/camel_experiment3_rest**
     * Note --rm removes the container when it is stopped.
     * --hostname allows papertrail to identify the log with this name as opposed to the more crytpic containerid
-
-
 
 
 ## [experiment4_mongo](https://github.com/stevensouza/camel/tree/master/experiment4_mongo). Note to run the program you must first start mongodb and apache drill using the docker commands for each mentioned above.
