@@ -102,7 +102,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
     * activemq/jms endpoints
     * hawtio/jolokia
     
-## [experiment3_rest](https://github.com/stevensouza/camel/tree/master/experiment3_rest)
+## [experiment3_rest](https://github.com/stevensouza/camel/tree/master/experiment3_rest) Spring boot app with rest endpoints. Automatically deploys to openshift via webhooks when committed, uses openshift ConfigMaps, centralized logging with PaperTrail from logback appender, correlationId's in log.
   * Spring boot camel app that uses rest endpoints. Some endpoints follow:
     * http://localhost:8080/rest/hi
     * http://localhost:8080/rest/hello
@@ -188,7 +188,7 @@ This code requires running Kafka and ActiveMq (see above for instructions for ru
           * or if you just want to display the log: **docker logs camel_experiment4_mongo-1**
         * **mvn docker:stop**
 
-## [camel_experiment5_mongo_openshift](https://github.com/stevensouza/camel/tree/master/camel_experiment5_mongo_openshift). This is the same codebase as experiment4 above except it was changed to work within openshift/kubernetes in the following ways.
+## [camel_experiment5_mongo_openshift](https://github.com/stevensouza/camel/tree/master/camel_experiment5_mongo_openshift). This is the same codebase as experiment4 above except it was changed to work within openshift/kubernetes in the following ways.  Uses auto deployment to openshift, ConfigMaps, Secrets (for mongodob), correlationId's in logs.
 * See experiment4 notes for more about what the app does and how it works as experiment5 was mostly a copy of its code.
 * application.properties was changed to work with openshift ConfigMaps and Secrets (env variables).  For example the following property was added.  The variables can be defined in either application.properties or in the case of openshift - ConfigMaps and Secrets can be defined to override the values in application.properties:
 MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
