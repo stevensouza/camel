@@ -1,5 +1,5 @@
 # Apache Camel Sample Programs
-experiments with apache camel and related technologies. Below is a brief description of the java programs.
+experiments with apache camel and related technologies. Below is a brief description of the java  programs.
 
 ## Running programs
 * To run the programs in any of the directories:  **mvn spring-boot:run**
