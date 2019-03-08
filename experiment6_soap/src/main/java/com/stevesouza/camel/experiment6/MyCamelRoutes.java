@@ -46,9 +46,22 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // see hawt io 'Route Metrics' for jamon like data it collects.
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
-        // Control main route
         from("direct:delme")
                 .routeId("route.delme")
+    .setBody(constant("12345"))
+    .bean(AddBuilder.class)
+
+    .setHeader("operationName", constant("Add"))
+
+    .to("cxf://http://www.dneonline.com/calculator.asmx"
+        + "?serviceClass=org.tempuri.CalculatorSoap"
+        + "&wsdlURL=service.wsdl")
+    .log("The response was ${body[0]}")
+        .transform(simple("The response was ${body[0]}"));
+
+        // Control main route
+        from("direct:delmex")
+                .routeId("route.delmex")
                 .log("header.action=${header.action}")
                 .transform(simple("Action taken on route: ${header.action}"));
 //        from("direct:generateRandomData.controlbus")
