@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.stevesouza</groupId>
-	<artifactId>camel_experiment1_rest</artifactId>
+	<artifactId>camel_experiment6_soap</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>camel_experiment1_rest</name>
-	<description>Demo camel for Spring Boot</description>
+	<name>camel_experiment6_soap</name>
+	<description>Camel, Spring boot and soap web services</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,7 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<camel.version>2.22.1</camel.version>
+		<camel.version>2.23.0</camel.version>
 	</properties>
 
 	<dependencies>
@@ -46,15 +46,15 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.kafka</groupId>-->
+			<!--<artifactId>spring-kafka</artifactId>-->
+		<!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-activemq</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-activemq</artifactId>-->
+        <!--</dependency>-->
 
 
 		<!-- spring metrics and health endpoints-->
@@ -86,6 +86,12 @@
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring-javaconfig-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-metrics-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
@@ -98,23 +104,30 @@
 
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jms-starter</artifactId>
+            <artifactId>camel-test-spring</artifactId>
             <version>${camel.version}</version>
+            <scope>test</scope>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.camel</groupId>-->
+            <!--<artifactId>camel-jms-starter</artifactId>-->
+            <!--<version>${camel.version}</version>-->
+        <!--</dependency>-->
 
 		<!--This allows us to use the activemq component in routes instead of jms.  According to the camel site-->
 		<!--it is more efficient.-->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-camel</artifactId>
-			<version>5.15.6</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.activemq</groupId>-->
+			<!--<artifactId>activemq-camel</artifactId>-->
+			<!--<version>5.15.6</version>-->
+		<!--</dependency>-->
 
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-kafka-starter</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.camel</groupId>-->
+			<!--<artifactId>camel-kafka-starter</artifactId>-->
+			<!--<version>${camel.version}</version>-->
+		<!--</dependency>-->
 		<!-- xml processing -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -192,6 +205,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.28.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <!--g=groupid, a=artifact, l=version-->
+                            <name>%g/%a:%l</name>
+                            <build>
+                                <from>openjdk:8</from>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <!--override application.properties when running app from a container-->
+                                <env>
+                                    <spring.data.mongodb.host>172.17.0.3</spring.data.mongodb.host>
+                                </env>
+                                <cmd>
+                                    java -jar maven/${project.artifactId}-${project.version}.jar
+                                </cmd>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
