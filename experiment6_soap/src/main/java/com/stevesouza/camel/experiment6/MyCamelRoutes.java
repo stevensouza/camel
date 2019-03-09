@@ -33,6 +33,10 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                 .toD(readFromWebService)
                 .setBody(simple("The ${header.operationName} response was ${body}"))
                 .log("${body}");
+
+        from("direct:math2")
+                .toD(readFromWebService);
+
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
 

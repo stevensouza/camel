@@ -81,6 +81,15 @@ public class MySpringController {
         return callSoapMathService(build(a, b), "Add");
     }
 
+    @PostMapping("/add2")
+    public String add2(@RequestBody List<Integer> list) {
+        return math
+                .withHeader("operationName", "Add")
+                .withBody(list)
+                .to("direct:math2")
+                .request(String.class);
+    }
+
     private String callSoapMathService(@RequestBody List<Integer> list, String operationName) {
         return math
                 .withHeader("operationName", operationName)
