@@ -27,15 +27,15 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         //
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
+        from("direct:math2")
+                .toD(readFromWebService);
+        
         from("direct:math")
                 .routeId("route.math")
                 .log("${header.operationName}: ${body}")
                 .toD(readFromWebService)
                 .setBody(simple("The ${header.operationName} response was ${body}"))
                 .log("${body}");
-
-        from("direct:math2")
-                .toD(readFromWebService);
 
     }
     // @formatter:on - enable intellij's reformat command after having disabled it for the above camel routes
