@@ -198,6 +198,13 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
 * Note there is a fabric8 maven plugin that deploys directly to openshift/kubernetes.  I didn't use this and did a standard docker plugin. 
 * Has correlationId added automatically to logging via spring-cloud-starter-sleuth in pom.xml.  Note becauset this app doesn't have rest calls this capability isn't demonstrated.  Just wanted this standard microservices capability in one of my latest pom.xml files.
 
+## [camel_experiment6_soap](https://github.com/stevensouza/camel/tree/master/experiment6_soap). Uses spring boot rest controller to call a publicly available soap service via the camel cxf component
+* Spring boot rest
+* hawtio - view metrics, view camel routes,...
+* swagger
+* camel cxf - used to call soap/wsdl
+
+
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
   * uses camel, jms/activemq, mongodb (older version of docker component i.e. mongodb and not mongodb3), docker
 
