@@ -32,16 +32,17 @@
     </properties>
 
 
-    <!-- the following camel maven bom allows us not to have to specify the version in the various camel dependencies -->
+    <!-- The following camel maven bom allows us not to have to specify the version in the various camel dependencies -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-bom</artifactId>
-                <version>${camel.version}</version>
-                <type>pom</type>
-            </dependency>
-
+            <!-- Camel BOM -->
+            <!--<dependency>-->
+                <!--<groupId>org.apache.camel</groupId>-->
+                <!--<artifactId>camel-parent</artifactId>-->
+                <!--<version>${camel.version}</version>-->
+                <!--<scope>import</scope>-->
+                <!--<type>pom</type>-->
+            <!--</dependency>-->
         </dependencies>
     </dependencyManagement>
 
@@ -99,25 +100,25 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring-boot-starter</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring-javaconfig-starter</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
+            <version>${camel.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-metrics-starter</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jackson-starter</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 
         <dependency>
@@ -156,24 +157,24 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-xstream</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jacksonxml</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-xmljson</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 
 		<!-- xml validation -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-msv</artifactId>
-			<version>${camel.version}</version>
+            <version>${camel.version}</version>
 		</dependency>
 		<!-- END camel libraries-->
 
