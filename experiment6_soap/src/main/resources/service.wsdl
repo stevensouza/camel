@@ -14,7 +14,7 @@
         </s:complexType>
       </s:element>
       <s:element name="AddResponse">
-        <s:complexType>
+        <s:complexType> 
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="AddResult" type="s:int" />
           </s:sequence>
