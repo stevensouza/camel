@@ -31,6 +31,8 @@ import java.util.List;
  * The following endpoint is the only one defined for a GET request:
  *   http://localhost:8080/math/addwithparams?a=4&b=5
  *
+ * Hawtio - http://localhost:8080/actuator/hawtio
+ *
  *   See https://github.com/apache/camel/blob/master/components/camel-cxf/src/main/docs/cxf-component.adoc
  *   for more info on the camel cxf endpoint.  Note alternatively the spring webservices component
  *   could be used https://github.com/apache/camel/blob/master/components/camel-spring-ws/src/main/docs/spring-ws-component.adoc
@@ -41,9 +43,13 @@ import java.util.List;
 @Slf4j
 public class MySpringController {
 
-    // note you could reuse the same FluentProducerTemplate and set the endpoint (probably template.to("direct:start")
+    // note don't reuse the same FluentProducerTemplate and set the endpoint (probably template.to("direct:start")
+    // as the next request that used it might get the wrong 'to' value. note i tested it
     @EndpointInject(uri = "direct:math")
     private FluentProducerTemplate math;
+
+    @EndpointInject(uri = "direct:math2")
+    private FluentProducerTemplate math2;
 
     @PostMapping("/add")
     public String add(@RequestBody List<Integer> list) {
@@ -83,10 +89,9 @@ public class MySpringController {
 
     @PostMapping("/add2")
     public String add2(@RequestBody List<Integer> list) {
-        return math
+        return math2
                 .withHeader("operationName", "Add")
                 .withBody(list)
-                .to("direct:math2")
                 .request(String.class);
     }
 

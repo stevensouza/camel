@@ -10,30 +10,30 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
     // externalized information for accessing math web service
     @Value("${camel.route.math.from}")
-    private String readFromWebService;
+    private String webServiceRoute;
 
     // @formatter:off - disable intellij's reformat command from messing up indentation in camel routes
     /** Defined routes:
      *      - route.math" - Called from rest controller to perform math by calling cxf soap webservices
      *          component which in turn calls a publicly available rest endpoint that either adds, subtracts,
      *          multiplies or divides 2 integers
-     *      - to view hawt io (camel routes, jmx) - http://localhost:8080/actuator/hawtio/
      *
      */
     @Override
     public void configure() {
         // enable dropwizard metrics - not required
         // see hawt io 'Route Metrics' for jamon like data it collects.
-        //
+        // to view hawt io (camel routes, jmx) - http://localhost:8080/actuator/hawtio/
+
         getContext().addRoutePolicyFactory(new MetricsRoutePolicyFactory());
 
         from("direct:math2")
-                .toD(readFromWebService);
-        
+                .toD(webServiceRoute);
+
         from("direct:math")
                 .routeId("route.math")
                 .log("${header.operationName}: ${body}")
-                .toD(readFromWebService)
+                .toD(webServiceRoute)
                 .setBody(simple("The ${header.operationName} response was ${body}"))
                 .log("${body}");
 

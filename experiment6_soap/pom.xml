@@ -20,12 +20,30 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<properties>
+
+
+    <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<camel.version>2.23.0</camel.version>
-	</properties>
+		<camel.version>2.23.1</camel.version>
+        <random-beans.version>3.7.0</random-beans.version>
+        <swagger.version>2.9.2</swagger.version>
+    </properties>
+
+
+    <!-- the following camel maven bom allows us not to have to specify the version in the various camel dependencies -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-bom</artifactId>
+                <version>${camel.version}</version>
+                <type>pom</type>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 	<dependencies>
 		<!-- START STANDARD SPRING BOOT LIBRARIES-->
@@ -172,13 +190,13 @@
         <dependency>
             <groupId>io.github.benas</groupId>
             <artifactId>random-beans</artifactId>
-            <version>3.7.0</version>
+            <version>${random-beans.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.benas</groupId>
             <artifactId>random-beans-validation</artifactId>
-            <version>3.7.0</version>
+            <version>${random-beans.version}</version>
         </dependency>
 
 		<!--<dependency>-->
@@ -190,6 +208,18 @@
 			<!--<groupId>org.apache.activemq</groupId>-->
 			<!--<artifactId>activemq-broker</artifactId>-->
 		<!--</dependency>-->
+        <!-- swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+		</dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
 		<!-- END other standard libraries of common use-->
 
 		<!-- **** START XML processing libraries-->
