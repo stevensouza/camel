@@ -40,7 +40,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/math")
-@Slf4j
+//@Slf4j
 public class MySpringController {
 
     // note don't reuse the same FluentProducerTemplate and set the endpoint (probably template.to("direct:start")
