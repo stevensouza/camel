@@ -215,6 +215,8 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
     * descending on average - http://localhost:8080/jamon?colIndex=3
     * descending on total - http://localhost:8080/jamon?colIndex=4
     * descending on max - http://localhost:8080/jamon?colIndex=8
+    * Sample automon/jamon report ![automon report](https://github.com/stevensouza/camel/blob/master/images/experiment6_jamon_report.png)
+
      
 
 
