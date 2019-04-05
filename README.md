@@ -203,11 +203,19 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
 * hawtio - view metrics, view camel routes,...
 * swagger
 * camel cxf - used to call soap/wsdl
-* Uses automon to monitor com.stevesouza..*.  See MySpringAspect for details.  
-  * automon.properties was added and the monitor defined in there is sysout.  You can also change the monitor by going into jmx console or hawtio and typing jamon, metrics... (assuming they are in the classpath) for the OpenMon property. This will instantiate the proper object (see AutoMon's AutomonMXBean interface and AutomonJmx implementation)
+* Uses automon to monitor "com.stevesouza..*" and "org.tempuri".  (See MySpringAspect for details).  
+  * automon.properties was added and the monitor defined in there is jamon.  You can also change the monitor by going into jmx console or hawtio and typing sysout, jamon, metrics... (assuming they are in the classpath) for the OpenMon property. This will instantiate the proper object (see AutoMon's AutomonMXBean interface and AutomonJmx implementation)
   * Note the project is compiled with AspectJ's Build Time Weaving (BTW).  This means that only classes in the project (i.e. source code) can be monitored.  So for example jdbc can't be.  To monitor jdbc and other java classes or 3rd party libraries you would have to use LTW (Load time weaving).   
   * Note aspectj seems to be incompatible with lombok.  In this project I didn't use it so that is acceptable, but a better solution would be nice.
   * Also it would be good to see how to use LTW with a spring boot app as that is more powerful.
+  * This application uses jamon and so there is a JamonController that displays the jamon html report.  The report can be sorted by the column index (starting at 0 for the first column).  sortOrder can be asc/desc. Examples follow...
+    * default descending on hits column - http://localhost:8080/jamon
+      * defaults are colIndex=2 (hits) and desc/descendiing.
+    * descending on average - http://localhost:8080/jamon?colIndex=3&sortOrder=desc
+    * descending on average - http://localhost:8080/jamon?colIndex=3
+    * descending on total - http://localhost:8080/jamon?colIndex=4
+    * descending on max - http://localhost:8080/jamon?colIndex=8
+     
 
 
 ## [cameldemo](https://github.com/stevensouza/cameldemo)
