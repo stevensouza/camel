@@ -1,7 +1,6 @@
 package com.stevesouza.camel.experiment6;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.FluentProducerTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -17,25 +16,25 @@ import java.util.List;
  * endpoint takes mutliple endpoints.  Note if the endpoint can take a specific
  * object I suspect that could be passed directly (i.e. if the Add object could be submitted
  * directly.
- *
+ * <p>
  * The endpoints that have postmapping take a json payload of an array (unnamed) with 2 values.  Exactly
  * like this: [5,6]. In the case of add being called the answer would be 11, and in the case of multiply
  * the answer would be 30 etc.
- *
+ * <p>
  * Here are the endpoints that would receive the above mentioned array json
- *  http://localhost:8080/math/add
- *  http://localhost:8080/math/subtract
- *  http://localhost:8080/math/multiply
- *  http://localhost:8080/math/divide
- *
+ * http://localhost:8080/math/add
+ * http://localhost:8080/math/subtract
+ * http://localhost:8080/math/multiply
+ * http://localhost:8080/math/divide
+ * <p>
  * The following endpoint is the only one defined for a GET request:
- *   http://localhost:8080/math/addwithparams?a=4&b=5
- *
+ * http://localhost:8080/math/addwithparams?a=4&b=5
+ * <p>
  * Hawtio - http://localhost:8080/actuator/hawtio
- *
- *   See https://github.com/apache/camel/blob/master/components/camel-cxf/src/main/docs/cxf-component.adoc
- *   for more info on the camel cxf endpoint.  Note alternatively the spring webservices component
- *   could be used https://github.com/apache/camel/blob/master/components/camel-spring-ws/src/main/docs/spring-ws-component.adoc
+ * <p>
+ * See https://github.com/apache/camel/blob/master/components/camel-cxf/src/main/docs/cxf-component.adoc
+ * for more info on the camel cxf endpoint.  Note alternatively the spring webservices component
+ * could be used https://github.com/apache/camel/blob/master/components/camel-spring-ws/src/main/docs/spring-ws-component.adoc
  */
 
 @RestController
@@ -73,9 +72,9 @@ public class MySpringController {
 
     /**
      * Adds integers a+b and returns the reponse
-     *
+     * <p>
      * example: http://localhost:8080/experiment6/addwithlist?a=13&b=17
-     *
+     * <p>
      * would return: response is 30
      *
      * @param a

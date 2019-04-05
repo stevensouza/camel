@@ -30,6 +30,7 @@
         <random-beans.version>3.7.0</random-beans.version>
         <swagger.version>2.9.2</swagger.version>
 		<automon.version>1.0.2</automon.version>
+        <jamon.version>2.81</jamon.version>
 		<mojo.ajc.version>1.11</mojo.ajc.version>
 	</properties>
 
@@ -241,6 +242,13 @@
 			<groupId>org.automon</groupId>
 			<artifactId>automon</artifactId>
 			<version>${automon.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.jamonapi</groupId>
+			<artifactId>jamon</artifactId>
+			<version>${jamon.version}</version>
 		</dependency>
 
 		<dependency>
