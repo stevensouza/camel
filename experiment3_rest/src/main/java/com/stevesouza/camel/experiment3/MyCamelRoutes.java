@@ -40,8 +40,8 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 	    //      ...rest of stacktrace...
         //  probaby better to set headers and return a JsonObject with error info in body
         onException(Exception.class)
-//            .handled(constant("${header.handled} == 'handled'").isEqualTo(true))
-            .handled(true)
+            // .handled(true)
+            .handled(header("handled").isEqualTo("handled"))
             .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(405))
             .setHeader("hello", constant("world"))
             .setHeader("myhttpheader", constant("myvalue"))
