@@ -3,6 +3,7 @@ package com.stevesouza.camel.experiment3;
 import com.stevesouza.camel.experiment3.utils.ThrowException;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
+import org.apache.camel.json.simple.JsonObject;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -32,14 +33,25 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         // handled(true) means that the exception won’t be propagated up the route to the caller.
         // it is like handling the exception in the catch block.  This also means that the original route
         // is broken and flow continues here to the end.
+        // Sample output:
+        //      HTTP status code: 500
+        //      Message: Simulating a customer validation exception to show how camel maps exceptions to http status codes
+        //      Stacktrace: com.stevesouza.camel.experiment3.utils.ThrowException$CustomerValidation: Simulating a customer validation exception to show how camel maps exceptions to http status codes
+	    //      ...rest of stacktrace...
+        //  probaby better to set headers and return a JsonObject with error info in body
         onException(Exception.class)
+//            .handled(constant("${header.handled} == 'handled'").isEqualTo(true))
             .handled(true)
-            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(405))
+            .setHeader("hello", constant("world"))
+            .setHeader("myhttpheader", constant("myvalue"))
+            .setHeader("error_message", simple("${exception.message}"))
             .setBody(
-                    simpleF("HTTP status code: %s\nMessage: %s\nStacktrace: %s",
+                    simpleF("HTTP status code: %s\nMessage: %s\nStacktrace: %s\nHandled: %s",
                     "${header.CamelHttpResponseCode}",
                     "${exception.message}",
-                    "${exception.stacktrace}")
+                    "${exception.stacktrace}",
+                    "${header.handled}")
             );
 
 
@@ -104,8 +116,10 @@ public class MyCamelRoutes extends SpringRouteBuilder {
 
 
         // this will trigger onException mapping to status codes above i.e. http status 500 is mapped to the exception
-        // localhost:8080/rest/exception
-        rest("/exception")
+        // localhost:8080/rest/exception/handled
+        // localhost:8080/rest/exception/nothandled
+
+        rest("/exception/{handled}")
                 .produces(MediaType.TEXT_PLAIN_VALUE)
                 .get()
                 .route().routeId("route.servlet.exception")
