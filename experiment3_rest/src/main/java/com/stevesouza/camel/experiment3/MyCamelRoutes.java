@@ -38,11 +38,11 @@ public class MyCamelRoutes extends SpringRouteBuilder {
         //      Message: Simulating a customer validation exception to show how camel maps exceptions to http status codes
         //      Stacktrace: com.stevesouza.camel.experiment3.utils.ThrowException$CustomerValidation: Simulating a customer validation exception to show how camel maps exceptions to http status codes
 	    //      ...rest of stacktrace...
-        //  probaby better to set headers and return a JsonObject with error info in body
+        //  probably better to set headers and return a JsonObject with error info in body than the following
         onException(Exception.class)
             // .handled(true)
             .handled(header("handled").isEqualTo("handled"))
-            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(405))
+            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(422))
             .setHeader("hello", constant("world"))
             .setHeader("myhttpheader", constant("myvalue"))
             .setHeader("error_message", simple("${exception.message}"))
@@ -52,7 +52,8 @@ public class MyCamelRoutes extends SpringRouteBuilder {
                     "${exception.message}",
                     "${exception.stacktrace}",
                     "${header.handled}")
-            );
+            )
+            .log("${body}");
 
 
         /*  If you use camel-jetty-starter can do this however then it loads both tomcat and jetty, so using 'servlet'
