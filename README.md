@@ -203,6 +203,8 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
 * hawtio - view metrics, view camel routes,...
 * swagger
 * camel cxf - used to call soap/wsdl
+* Makes a call to a camel jmx bean to display Metrics data (both automon and camel)
+* Uses 'MySpringAspect mySpringAspect = Aspects.aspectOf(MySpringAspect.class)' to grab automon singleton aspect and configure
 * Uses [automon](https://github.com/stevensouza/automon) to monitor "com.stevesouza..*" and "org.tempuri".  (See MySpringAspect for details).  
   * automon.properties was added and the monitor defined in there is jamon.  You can also change the monitor by going into jmx console or hawtio and typing sysout, jamon, metrics... (assuming they are in the classpath) for the OpenMon property. This will instantiate the proper object (see AutoMon's AutomonMXBean interface and AutomonJmx implementation)
   * Note the project is compiled with AspectJ's Build Time Weaving (BTW) for a Spring boot/camel app.  This means that only classes in the project (i.e. source code) can be monitored.  So for example jdbc can't be.  To monitor jdbc and other java classes or 3rd party libraries you would have to use LTW (Load time weaving).  An advantage of using aspectj over Spring's built in monitoring is that Spring only allows you to monitor Spring beans whereas aspectj lets you monitor anything (Pojo's/utility classes etc).
@@ -216,6 +218,8 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
     * descending on total - http://localhost:8080/jamon?colIndex=4
     * descending on max - http://localhost:8080/jamon?colIndex=8
     * Sample automon/jamon report sorted descending on hits: ![automon report](https://github.com/stevensouza/camel/blob/master/images/experiment6_jamon_report.png)
+  * You can also change the automon.properties value to use metrics. If you do both automon and camel metrics are kept in the same metrics registry and can be viewed with
+    * http://localhost:8080/metrics
 
      
 
