@@ -203,7 +203,8 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
 * hawtio - view metrics, view camel routes,...
 * swagger
 * camel cxf - used to call soap/wsdl
-* Makes a call to a camel jmx bean to display Metrics data for both automon and camel. Note spring uses micrometer now so spring metrics can be found here: http://localhost:8080/actuator/metrics. A future version of Automon will work with micrometer.
+* Makes a call to a camel jmx bean to display Metrics data for both automon and camel. Note spring uses micrometer now so spring metrics can be found here: http://localhost:8080/actuator/metrics. Automon will put metrics in here if automon.properties specifies micrometer as the underlying monitoring library.
+  * To specify an individual metric: http://localhost:8080/actuator/metrics/execution(int org.tempuri.AddResponse.getAddResult())
 * Uses 'MySpringAspect mySpringAspect = Aspects.aspectOf(MySpringAspect.class)' to grab automon singleton aspect and configure
 * Uses [automon](https://github.com/stevensouza/automon) to monitor "com.stevesouza..*" and "org.tempuri".  (See MySpringAspect for details).  
   * automon.properties was added and the monitor defined in there is jamon.  You can also change the monitor by going into jmx console or hawtio and typing sysout, jamon, metrics... (assuming they are in the classpath) for the OpenMon property. This will instantiate the proper object (see AutoMon's AutomonMXBean interface and AutomonJmx implementation)
