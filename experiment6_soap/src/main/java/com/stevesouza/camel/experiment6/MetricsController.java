@@ -1,11 +1,14 @@
 package com.stevesouza.camel.experiment6;
 
 import com.jamonapi.MonitorFactory;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.camel.component.metrics.routepolicy.MetricsRegistryMBean;
 import org.aspectj.lang.Aspects;
 import org.automon.implementations.Jamon;
 import org.automon.implementations.Metrics;
+import org.automon.implementations.Micrometer;
 import org.automon.implementations.OpenMon;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,12 @@ import java.lang.management.ManagementFactory;
 @RestController
 @RequestMapping
 public class MetricsController {
+
+    @Autowired
+    public MetricsController(MeterRegistry registry) {
+        Micrometer.setMeterRegistry(registry);
+    }
+
 
     // use this when you are getting mbeans in the same jvm the server executes. Alternatively you can get a remote
     // connection.
@@ -59,6 +68,7 @@ public class MetricsController {
 
     /**
      * Used to test automon tracking an exception
+     *
      * @return
      */
     @GetMapping(value = "/exception", produces = MediaType.APPLICATION_JSON_VALUE)
