@@ -202,7 +202,11 @@ MONGODB_URI=mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DBNAME}
 * Spring boot rest
 * hawtio - view metrics, view camel routes,...
 * swagger
-* camel cxf - used to call soap/wsdl
+* camel cxf - used to call soap/wsdl.  To call the rest endpoint which in turn calls the public web service to do simple math...
+  * endpoints: http://localhost:8080/math/add, http://localhost:8080/math/subtract, http://localhost:8080/math/divide, http://localhost:8080/math/multiply (See MySpringController for code which sends data to camel cxf route)
+  * Content-Type header: application/json
+  * json payload is an array of 2 numbers to do math on: [75,30]
+  * The result is the answer
 * Makes a call to a camel jmx bean to display Metrics data for both automon and camel. Note spring uses micrometer now so spring metrics can be found here: http://localhost:8080/actuator/metrics. Automon will put metrics in here if automon.properties specifies micrometer as the underlying monitoring library.
   * To specify an individual metric: http://localhost:8080/actuator/metrics/execution(int org.tempuri.AddResponse.getAddResult())
 * Uses 'MySpringAspect mySpringAspect = Aspects.aspectOf(MySpringAspect.class)' to grab automon singleton aspect and configure
